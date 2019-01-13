@@ -1,0 +1,46 @@
+body{
+    width: 1000px;
+    margin: 10px auto;
+}
+.blacklist-header{
+    background-color: #cbcbcb;
+    text-align: center;
+}
+.blacklist-body{
+    width: 100%;
+
+    font-family: OpenSymbol;
+    display:table;
+    border-collapse:collapse;
+    padding: 10px;
+}
+.blacklist-wrapper{
+    display:table-row;
+}
+.blacklist-col-left a {
+    color: white;
+    text-decoration: none;
+
+}
+.blacklist-col-left{
+
+    width: 20%;
+
+    background-color: #2566a8;
+
+    display:table-cell;
+
+}
+
+
+.blacklist-col-center{
+    width: 80%;
+
+    color: #333333;
+    display:table-cell;
+
+}
+.blacklist-left{
+    width: 100%;
+
+}

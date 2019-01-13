@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Friday_news</title>
+
+
+    <style>
+
+        input[type="text"] , input[type="password"]{
+            border: 1px solid #cccccc; /*цвет рамки*/
+        border-radius: 3px; /*закругление углов (общее)*/
+        -webkit-border-radius: 3px; /*закругление углов (Google Chrome)*/
+        -moz-border-radius: 3px; /*закругление углов (FireFox)*/
+        -khtml-border-radius: 3px; /*закругление углов (Safari)*/
+        background-color: #e6ffea !important; /* желательно прописывать, так как в Chrome при сохранных данных оно может быть желтым*/
+        outline: none; /*удаляет обводку в браузерах хром(желтая) и сафари(синяя)*/
+        height: 24px; /*высота на свое усмотрение*/
+        width: 210px; /* ширина на свое усмотрение*/
+        color: #494949; /*цвет шрифта в обычном состоянии*/
+        font-size: 16px; /* Размер шрифта*/
+        font-family: Tahoma; /* Стиль шрифта*/
+        }
+
+
+        .input[type='button'] {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            padding: .5em 2em;
+            outline: none;
+            border-width: 2px 0;
+            border-style: solid none;
+            border-color: #FDBE33 #000 #D77206;
+            border-radius: 6px;
+            background: linear-gradient(#F3AE0F, #E38916) #E38916;
+            transition: 0.2s;
+        }
+        .input[type='button']:hover { background: linear-gradient(#f5ae00, #f59500) #f5ae00; }
+        .input[type='button']:active { background: linear-gradient(#f59500, #f5ae00) #f59500; }
+        label{
+            font-size: 16px; /* Размер шрифта*/
+            font-family: Tahoma; /* Стиль шрифта*/
+            font-weight: bold;
+        }
+        input[type="button"],
+        input[type="submit"] {
+            background: -moz-linear-gradient(rgba(39, 169, 236, 0.35), rgb(39, 169, 236), #2496d3);
+            background: -webkit-gradient(linear, 0 0, 0  100%, from(rgba(39, 169, 236, 0.44)), to(#27a9ec), color-stop(0.5, #2496d3));
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
+            padding: 3px 7px;
+            color: #ffffff;
+            text-shadow: 1px 1px 2px black, 0 0 1em #1277a8; /* Параметры тени */
+            padding:10px;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            border-radius: 2px;
+            border: 1px solid #666;
+            font-weight: bold;
+            font-size: 16px; /* Размер шрифта*/
+            cursor: pointer;
+        }
+    </style>
+
+
+</head>
+<body>
+<table style="width: 100%; margin-top: 12%">
+    <tr>
+        <td style="width: 30%"></td>
+        <td style="width: 15%"><img src="http://gip.jscguideh.ru/friday_news/img/Login.jpg" width="311" ></td>
+        <td style="width: 35%">
+            <h3 style="color: #c10015; font-family: Tahoma, Arial, sans-serif"> НОВОСТИ ПЯТНИЦЫ</h3>
+            <h1>Вход в Личный кабинет </h1>
+            <h3>Регистрация данных по отчетам за неделю </h3>
+            <br/>
+            <form action="index.php" method="post" enctype="text/html" style="margin-bottom:auto;height: 200px">
+                <input type="hidden" name="command" value="login">
+                Логин:<br>
+                <input type="text" name="login" value="" required placeholder="  Введите логин" ><br>
+                Пароль:<br>
+                <input type="password" name="password" value="" required placeholder="  Введите пароль" ><!--br>
+                    Дата:<br>
+                    <input type="text" name="fordate"--><br/><br/>
+                <input id="sbtn" type="submit" value="ПРИНЯТЬ" style=" font-size: 1.1em; cursor: pointer;">
+            </form>
+        </td>
+        <td style="width: 20%"></td>
+    </tr>
+    <tr>
+        <td style="width: 30%"></td>
+        <td style="width: 50%; text-align: center" colspan="2" >
+<br/><br/><br/><br/>
+        <label for="fryday">Выберите дату отчета:</label>
+        <input type="date" value="" id="fryday" name="fryday" style="font-size: 2em" min="2017-06-02" step="7"><br/><br/>
+        <input type="button" class="button11" value="ПОСМОТРЕТЬ ДАННЫЕ ЗА ВЫБРАННУЮ ДАТУ"  onclick="getBrowse();">
+
+        </td>
+        <td style="width: 20%"></td>
+    </tr>
+</table>
+
+
+<script>
+    function getBrowse(){
+        var friday_date = document.getElementById('fryday').value;
+        window.location.href='/friday_news/browse.php?d='+ friday_date;
+    }
+    function getDate(){
+        return "2018-06-09";
+    }
+</script>
+
+</body>
+</html>

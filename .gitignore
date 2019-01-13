@@ -1,0 +1,8 @@
+*.scssc
+css/.sass-cache/
+vendor/*
+.idea/*
+config/*
+
+
+

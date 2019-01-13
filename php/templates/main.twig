@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Black list</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel='stylesheet' href='css/blacklist.css' type='text/css' media='all' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="blacklist-header">
+    <h2>Black list</h2>
+</div>
+<div class="blacklist-body">
+    <div class="blacklist-wrapper">
+        <div class="blacklist-col-left">
+            {% include 'blacklist-left.twig' %}
+            {% import  'blacklist-left.twig' as sidebarLeft %}
+        </div>
+        <div class="blacklist-col-center">
+            {% include 'blacklist-center.twig' %}
+            {% import  'blacklist-center.twig' as mainContent %}
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+</html>

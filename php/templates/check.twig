@@ -1,0 +1,48 @@
+<div>
+    <h3>checkView</h3>
+    <div>
+        <form action="#">
+            <label>фамилия </label>
+            <input type="text" name="lastname" value='{{ lastname }}'>
+
+            <label>имя</label>
+            <input type="text" name="firstname" value='{{ firstname }}'>
+
+            <label>отчество</label>
+            <input type="text" name="midname" value='{{ midname }}'>
+
+            <label>дата рождения</label>
+            <input type="date" name="birthday" value='{{ birthday }}'>
+
+            <label>вид страхования</label>
+            <select name="vid" >
+                <option value="0">выберите ...</option>
+                {% for vid in vids %}
+                    <option value="{{ vid.id }}">{{ vid.name }}</option>
+                {% endfor %}
+            </select>
+
+            <input type="submit" value="Submit">
+        </form>
+
+    </div>
+
+    <div>
+        <table>
+            <tr>
+                <th>фамилия</th>
+                <th>имя</th>
+                <th>отчество</th>
+                <th>дата рождения</th>
+            </tr>
+            {% for checkResult in checkResults %}
+            <tr>
+                <td>{{ checkResult.lastname }}</td>
+                <td>{{ checkResult.firstname }}</td>
+                <td>{{ checkResult.midname }}</td>
+                <td>{{ checkResult.birthday }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
