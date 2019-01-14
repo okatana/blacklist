@@ -54,7 +54,7 @@ class BlackListController
     private function checkView(){
         $vids = $this->model->getVidsInsurance();
        // $checkResults = [];
-        $checkResults = $this->getCheckResults();
+        $checkResults = $this->getCheckResults0();
         $params=[
             'lastname'=>'иванов',
             'firstname'=>'иван',
@@ -70,7 +70,7 @@ class BlackListController
         return $this->mainView($content);
     }
 
-    private function getCheckResults(){
+    private function getCheckResults0(){
         return [
             ['lastname'=>'иванов1',
             'firstname'=>'иван',
@@ -84,5 +84,26 @@ class BlackListController
             ]
 
             ];
+    }
+    private function getCheckResults($lastname,$firstname,$midname,$birthday){
+        return $this->model->getCheckResults($lastname,$firstname,$midname,$birthday);
+    }
+
+    public function check($lastname,$firstname,$midname,$birthday){
+        $vids = $this->model->getVidsInsurance();
+        $checkResults = $this->getCheckResults($lastname,$firstname,$midname,$birthday);
+        $params=[
+            'lastname'=>$lastname,
+            'firstname'=>$firstname,
+            'midname'=>$midname,
+            'birthday'=>$birthday,
+            'vids'=>$vids,
+            'checkResults'=>$checkResults,
+        ];
+
+
+
+        $content = $this->view->renderCheckView($params);
+        echo $this->mainView($content);
     }
 }

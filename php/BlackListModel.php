@@ -19,7 +19,7 @@ class BlackListModel
 
     }
 
-    function checkLogin($login, $password)
+    public  function checkLogin($login, $password)
     {
         $this->logger->info('$login = ' . $login);
         $this->logger->info('$password = ' . $password);
@@ -35,11 +35,25 @@ class BlackListModel
         return false;
     }
 
-    function getVidsInsurance(){
+    public  function getVidsInsurance(){
         $sql = <<<SQL
 SELECT id, name FROM blacklist_vid_insurance ORDER BY name
 SQL;
         $result = $this->pdo->execute('selectAll', $sql);
+        return $result;
+    }
+
+
+    public function getCheckResults($lastname,$firstname,$midname,$birthday){
+        $lastnameCondition = $lastname ? ' AND lastname rlike '. $this->pdo->getDbh()->quote($lastname): '';
+       /* $lastnameCondition = $lastname ? ' AND lastname rlike '. $this->pdo->quote($lastname): '';
+        $lastnameCondition = $lastname ? ' AND lastname rlike '. $this->pdo->quote($lastname): '';
+        $lastnameCondition = $lastname ? ' AND lastname rlike '. $this->pdo->quote($lastname): '';*/
+        $sql = <<<SQL
+SELECT *  FROM blacklist_client 
+where 1 $lastnameCondition
+SQL;
+        $result = $this->pdo->execute('selectAll', $sql );
         return $result;
     }
 }

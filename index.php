@@ -29,7 +29,9 @@ switch ($command){
     case 'login':
         $controller->login($_POST['login'], $_POST['password']);
         break;
-
+    case 'check':
+        $controller->check($_POST['lastname'], $_POST['firstname'], $_POST['midname'], $_POST['birthday']);
+        break;
     default:
         echo 'неизвестная команда '. $command;
 }

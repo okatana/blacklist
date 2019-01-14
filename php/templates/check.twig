@@ -1,7 +1,10 @@
 <div>
     <h3>checkView</h3>
     <div>
-        <form action="#">
+        <form action="index.php" method="post" enctype="text/html">
+
+            <input type="hidden" name="command" value="check">
+
             <label>фамилия </label>
             <input type="text" name="lastname" value='{{ lastname }}'>
 
