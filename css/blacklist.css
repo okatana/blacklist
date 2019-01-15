@@ -1,6 +1,7 @@
 body{
     width: 1000px;
     margin: 10px auto;
+    font-family: 'Roboto', sans-serif;
 }
 .blacklist-header{
     background-color: #cbcbcb;
@@ -8,8 +9,6 @@ body{
 }
 .blacklist-body{
     width: 100%;
-
-    font-family: OpenSymbol;
     display:table;
     border-collapse:collapse;
     padding: 10px;
@@ -43,4 +42,45 @@ body{
 .blacklist-left{
     width: 100%;
 
+}
+div.blacklist-check-wrapper{
+  padding: 20px;
+
+}
+table.blacklist-table{
+    border:1px black solid;
+    width:100%;
+}
+table.blacklist-table tr,
+table.blacklist-table th,
+table.blacklist-table td {
+    border:1px black solid;
+}
+
+table.blacklist-table th{
+    text-align: center;
+    padding: 5px;
+    text-transform: uppercase;
+}
+input.blacklist-submit{
+
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    cursor:pointer;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }

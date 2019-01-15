@@ -11,9 +11,6 @@ require 'php/BlackListController.php';
 //print_r($_POST);
 /*$logger=new \guideh\MyLogger('test logger');
 $logger->info('info test logger');*/
-
-
-
 session_start();
 // контроллер
 $controller = new BlackListController($config);

@@ -46,14 +46,16 @@ SQL;
 
     public function getCheckResults($lastname,$firstname,$midname,$birthday){
         $lastnameCondition = $lastname ? ' AND lastname rlike '. $this->pdo->getDbh()->quote($lastname): '';
-       /* $lastnameCondition = $lastname ? ' AND lastname rlike '. $this->pdo->quote($lastname): '';
-        $lastnameCondition = $lastname ? ' AND lastname rlike '. $this->pdo->quote($lastname): '';
-        $lastnameCondition = $lastname ? ' AND lastname rlike '. $this->pdo->quote($lastname): '';*/
+        $firstCondition = $firstname ? ' AND firstname rlike '. $this->pdo->getDbh()->quote($firstname): '';
+        $midnameCondition = $midname ? ' AND midname rlike '. $this->pdo->getDbh()->quote($midname): '';
+        $birthdayCondition = $birthday ? ' AND birthday = '. $this->pdo->getDbh()->quote($birthday): '';
+
         $sql = <<<SQL
-SELECT *  FROM blacklist_client 
-where 1 $lastnameCondition
+SELECT* FROM blacklist_client cl , blacklist_client_info inf, blacklist_user us
+where cl.client_id = inf.client_id AND cl.user_id = us.user_id  $lastnameCondition $firstCondition $midnameCondition $birthdayCondition
 SQL;
         $result = $this->pdo->execute('selectAll', $sql );
+        print_r($result,true);
         return $result;
     }
 }
