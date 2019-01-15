@@ -6,10 +6,14 @@ body{
 .blacklist-header{
     background-color: #faf9ac;
     text-align: center;
+    border: 10px solid transparent;
+
 }
-.blacklist-header h2{
+.blacklist-header h3{
     margin:0;
+    background-color: none;
 }
+
 .blacklist-body{
     width: 100%;
     display:table;
@@ -122,3 +126,4 @@ input[type="submit"]:hover{
     border: 1px solid transparent;
 
 }
+

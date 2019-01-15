@@ -51,19 +51,22 @@ if(!empty($_POST['submit'])){
     $firstname = ($_POST && $_POST['firstname']) ? $_POST['firstname'] : '';
     $midname =   ($_POST && $_POST['midname']) ? $_POST['midname'] : '';
     $birthday =  ($_POST && $_POST['birthday']) ? $_POST['birthday'] : '';
+    $vid =  ($_POST && $_POST['vid']) ? $_POST['vid'] : '';
 }else{
     $lastname='';
     $firstname='';
     $midname='';
     $birthday='';
+    $vid=0;
 }
-        $checkResults = $this->getCheckResults($lastname,$firstname,$midname,$birthday);
+        $checkResults = $this->getCheckResults($lastname,$firstname,$midname,$birthday,$vid);
 
         $params=[
             'lastname'=>'иванов',
             'firstname'=>'иван',
             'midname'=>'иванович',
             'birthday'=>'1900-11-21',
+            'vid'=>$vid,
             'vids'=>$vids,
             'checkResults'=>$checkResults,
         ];
@@ -84,17 +87,18 @@ if(!empty($_POST['submit'])){
             ]
         ];
     }*/
-    private function getCheckResults($lastname,$firstname,$midname,$birthday){
-        return $this->model->getCheckResults($lastname,$firstname,$midname,$birthday);
+    private function getCheckResults($lastname,$firstname,$midname,$birthday,$vid){
+        return $this->model->getCheckResults($lastname,$firstname,$midname,$birthday,$vid);
     }
-    public function check($lastname,$firstname,$midname,$birthday){
+    public function check($lastname,$firstname,$midname,$birthday,$vid){
         $vids = $this->model->getVidsInsurance();
-        $checkResults = $this->getCheckResults($lastname,$firstname,$midname,$birthday);
+        $checkResults = $this->getCheckResults($lastname,$firstname,$midname,$birthday,$vid);
         $params=[
             'lastname'=>$lastname,
             'firstname'=>$firstname,
             'midname'=>$midname,
             'birthday'=>$birthday,
+            'vid'=>$vid,
             'vids'=>$vids,
             'checkResults'=>$checkResults,
         ];

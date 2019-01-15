@@ -44,15 +44,20 @@ SQL;
     }
 
 
-    public function getCheckResults($lastname,$firstname,$midname,$birthday){
+    public function getCheckResults($lastname,$firstname,$midname,$birthday,$vid){
         $lastnameCondition = $lastname ? ' AND lastname rlike '. $this->pdo->getDbh()->quote($lastname): '';
         $firstCondition = $firstname ? ' AND firstname rlike '. $this->pdo->getDbh()->quote($firstname): '';
         $midnameCondition = $midname ? ' AND midname rlike '. $this->pdo->getDbh()->quote($midname): '';
         $birthdayCondition = $birthday ? ' AND birthday = '. $this->pdo->getDbh()->quote($birthday): '';
+        $vidCondition = $vid ? ' AND vid_id = '. $this->pdo->getDbh()->quote($vid): 0;
 
         $sql = <<<SQL
-SELECT* FROM blacklist_client cl , blacklist_client_info inf, blacklist_user us
-where cl.client_id = inf.client_id AND cl.user_id = us.user_id  $lastnameCondition $firstCondition $midnameCondition $birthdayCondition
+SELECT* 
+FROM blacklist_client cl , 
+     blacklist_client_info inf, 
+     blacklist_user us
+     
+where cl.client_id = inf.client_id AND cl.user_id = us.user_id   $lastnameCondition $firstCondition $midnameCondition $birthdayCondition $vidCondition
 SQL;
         $result = $this->pdo->execute('selectAll', $sql );
 
