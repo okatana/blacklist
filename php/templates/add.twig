@@ -1,0 +1,63 @@
+<div class="blacklist-check-wrapper">
+    <h3>Добавление нового клиента    (addView)</h3><br/><br/>
+    <div>
+        <form action="index.php" method="post" enctype="text/html">
+
+            <input type="hidden" name="command" value="add">
+
+            <label>фамилия </label>
+            <input type="text" name="lastname" value='{{ lastname }}'> &nbsp;&nbsp;&nbsp;&nbsp;
+
+            <label>имя</label>
+            <input type="text" name="firstname" value='{{ firstname }}'> &nbsp;&nbsp;&nbsp;&nbsp;
+
+            <label>отчество</label>
+            <input type="text" name="midname" value='{{ midname }}'> <br/><br/>
+
+            <label>дата рождения</label>
+            <input type="date" name="birthday" value='{{ birthday }}'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <label>вид страхования</label>
+            <select name="vid"  >
+                <option value="0">выберите ...</option>
+                {% for vid in vids %}
+                    <option  value="{{ vid.id }}">{{ vid.name }}</option>
+                {% endfor %}
+            </select>
+            <br/><br/>
+            <label>комментарий</label>
+            <p><textarea rows="10" cols="45" name="text"></textarea></p>
+            <h4><input type="submit" value="Добавить" class="blacklist-submit-button"></h4>
+
+            <br/><br/>
+        </form>
+
+    </div>
+
+    <div>
+        <table class="blacklist-table">
+            <tr>
+                <th>ID</th>
+                <th>фамилия  </th>
+                <th>имя  </th>
+                <th>отчество  </th>
+                <th>дата рождения  </th>
+                <th>ФИО менеджера  </th>
+                <th>email менеджера  </th>
+                <th>комментарий  </th>
+            </tr>
+            {% for checkResult in checkResults %}
+            <tr>
+                <td>{{ checkResult.client_id }}</td>
+                <td>{{ checkResult.lastname }}</td>
+                <td>{{ checkResult.firstname }}</td>
+                <td>{{ checkResult.midname }}</td>
+                <td>{{ checkResult.birthday }}</td>
+                <td>{{ checkResult.manager }}</td>
+                <td><a href="mailto:{{ checkResult.email }}">{{ checkResult.email }}</a></td>
+                <td>{{ checkResult.comment }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>

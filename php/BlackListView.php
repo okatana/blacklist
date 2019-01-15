@@ -30,5 +30,7 @@ class BlackListView
         return $this->twig->render('check.twig', $params);
     }
 
-
+    public function renderAddView(){
+        return $this->twig->render('add.twig', $params);
+    }
 }
