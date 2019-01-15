@@ -34,10 +34,10 @@ class BlackListController
         if ($user) {
             $this->user = $user;
             $_SESSION['user_id'] = $user['user_id'];
-            $_SESSION['allow_edit'] = $user['allow_edit'];
+            $_SESSION['allow_edit'] = $user['allow_edit']; //доступ данного менеджера к редактированию. Если = 1, то может все: редактировать и смотреть-проверять
             echo  $this->checkView();
         } else {
-            echo $this->view->renderError('Нет прав.'); //проверить, что в твиге!!
+            echo $this->view->renderError('Нет прав.');
         }
     }
     private function mainView($content){
@@ -45,8 +45,20 @@ class BlackListController
     }
     private function checkView(){
         $vids = $this->model->getVidsInsurance();
-        // $checkResults = [];
-        $checkResults = $this->getCheckResults();
+        $checkResults = [];
+if(!empty($_POST['submit'])){
+    $lastname =  ($_POST && $_POST['lastname']) ? $_POST['lastname'] : '';
+    $firstname = ($_POST && $_POST['firstname']) ? $_POST['firstname'] : '';
+    $midname =   ($_POST && $_POST['midname']) ? $_POST['midname'] : '';
+    $birthday =  ($_POST && $_POST['birthday']) ? $_POST['birthday'] : '';
+}else{
+    $lastname='';
+    $firstname='';
+    $midname='';
+    $birthday='';
+}
+        $checkResults = $this->getCheckResults($lastname,$firstname,$midname,$birthday);
+
         $params=[
             'lastname'=>'иванов',
             'firstname'=>'иван',
@@ -58,7 +70,7 @@ class BlackListController
         $content = $this->view->renderCheckView($params);
         return $this->mainView($content);
     }
-    private function getCheckResults0(){
+   /* private function getCheckResults0(){
         return [
             ['lastname'=>'иванов1',
                 'firstname'=>'иван',
@@ -71,7 +83,7 @@ class BlackListController
                 'birthday'=>'1900-11-21'
             ]
         ];
-    }
+    }*/
     private function getCheckResults($lastname,$firstname,$midname,$birthday){
         return $this->model->getCheckResults($lastname,$firstname,$midname,$birthday);
     }

@@ -4,14 +4,17 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 .blacklist-header{
-    background-color: #cbcbcb;
+    background-color: #faf9ac;
     text-align: center;
+}
+.blacklist-header h2{
+    margin:0;
 }
 .blacklist-body{
     width: 100%;
     display:table;
     border-collapse:collapse;
-    padding: 10px;
+    padding: 0px;
 }
 .blacklist-wrapper{
     display:table-row;
@@ -41,20 +44,40 @@ body{
 }
 .blacklist-left{
     width: 100%;
-
 }
+.blacklist-left a{
+    display: inline-block;
+    color: white;
+    font-weight: 700;
+    text-decoration: none;
+    user-select: none;
+    padding: .5em 2em;
+    outline: none;
+    border: 2px solid;
+    border-radius: 1px;
+    transition: 0.2s;
+width:70%;
+    margin:10px 20px;
+}
+.blacklist-left a:hover{
+    background: rgba(255,255,255,.2);
+}
+.blacklist-left a:active {
+    background: white;
+}
+
 div.blacklist-check-wrapper{
   padding: 20px;
 
 }
 table.blacklist-table{
-    border:1px black solid;
     width:100%;
 }
 table.blacklist-table tr,
 table.blacklist-table th,
 table.blacklist-table td {
-    border:1px black solid;
+    border:1px #d6d6d6 solid;
+    padding:5px 10px;
 }
 
 table.blacklist-table th{
@@ -83,4 +106,19 @@ input.blacklist-submit{
     line-height: 1.5;
     border-radius: .25rem;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.blacklist-submit-button{
+    padding:5px;
+}
+input[type="submit"]:active{
+    border-color: #007bff;
+    border: 1px solid transparent;
+
+}
+
+input[type="submit"]:hover{
+    border-color: #ff0000;
+    border: 1px solid transparent;
+
 }

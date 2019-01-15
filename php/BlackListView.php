@@ -23,7 +23,7 @@ class BlackListView
     }
 
     public function renderMainView($content){
-        return $this->twig->render('main.twig', array('content'=>$content));
+        return $this->twig->render('main.twig', array('content'=>$content, 'allow_edit'=>$_SESSION['allow_edit']));
     }
 
     public function renderCheckView($params){

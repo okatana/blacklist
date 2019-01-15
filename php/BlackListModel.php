@@ -26,7 +26,7 @@ class BlackListModel
         $sql = 'select user_id, password, allow_edit from blacklist_user where login=? and active=1';
         $result = $this->pdo->execute('selectOne', $sql, array($login));
 
-        $this->logger->info('result = ' . print_r($result, true));
+      //  $this->logger->info('result = ' . print_r($result, true));
         if ($result && $result->password === sha1($password)) {
             return ['user_id'=>$result->user_id,
                     'allow_edit'=>$result->allow_edit
@@ -55,7 +55,7 @@ SELECT* FROM blacklist_client cl , blacklist_client_info inf, blacklist_user us
 where cl.client_id = inf.client_id AND cl.user_id = us.user_id  $lastnameCondition $firstCondition $midnameCondition $birthdayCondition
 SQL;
         $result = $this->pdo->execute('selectAll', $sql );
-        print_r($result,true);
+
         return $result;
     }
 }

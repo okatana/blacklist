@@ -1,21 +1,21 @@
 <div class="blacklist-check-wrapper">
-    <h3>checkView</h3>
+    <h3>Проверка клиента    (checkView)</h3><br/><br/>
     <div>
         <form action="index.php" method="post" enctype="text/html">
 
             <input type="hidden" name="command" value="check">
 
             <label>фамилия </label>
-            <input type="text" name="lastname" value='{{ lastname }}'>
+            <input type="text" name="lastname" value='{{ lastname }}'> &nbsp;&nbsp;&nbsp;&nbsp;
 
             <label>имя</label>
-            <input type="text" name="firstname" value='{{ firstname }}'>
+            <input type="text" name="firstname" value='{{ firstname }}'> &nbsp;&nbsp;&nbsp;&nbsp;
 
             <label>отчество</label>
-            <input type="text" name="midname" value='{{ midname }}'><br/><br/>
+            <input type="text" name="midname" value='{{ midname }}'> <br/><br/>
 
             <label>дата рождения</label>
-            <input type="date" name="birthday" value='{{ birthday }}'><br/><br/>
+            <input type="date" name="birthday" value='{{ birthday }}'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
             <label>вид страхования</label>
             <select name="vid"  >
@@ -25,7 +25,8 @@
                 {% endfor %}
             </select>
             <br/><br/>
-            <input type="submit" value="Проверить">
+            <h4><input type="submit" value="Проверить" class="blacklist-submit-button"></h4>
+
             <br/><br/>
         </form>
 

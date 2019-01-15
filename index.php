@@ -5,6 +5,12 @@
  * Date: 20.03.2017
  * Time: 17:10
  */
+
+header("Cache-Control: no-store, no-cache, must-revalidate");
+header("Expires: " . date("r"));
+echo "<h1>", date("H:i:s"), "</h1>";
+
+
 /*require 'php/MyLogger.php';*/
 require 'config/config.php';
 require 'php/BlackListController.php';

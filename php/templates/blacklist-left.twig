@@ -1,6 +1,8 @@
 <div class="blacklist-left">
     <div>
-        <a>Добавить</a>
+        {% if allow_edit == 1 %}
+        <a>Добавить </a>
+        {% endif %}
     </div>
     <div>
         <a>Проверить</a>
