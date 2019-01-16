@@ -49,7 +49,7 @@ SQL;
         $firstCondition = $firstname ? ' AND firstname rlike '. $this->pdo->getDbh()->quote($firstname): '';
         $midnameCondition = $midname ? ' AND midname rlike '. $this->pdo->getDbh()->quote($midname): '';
         $birthdayCondition = $birthday ? ' AND birthday = '. $this->pdo->getDbh()->quote($birthday): '';
-        $vidCondition = $vid ? ' AND vid_id = '. $this->pdo->getDbh()->quote($vid): 0;
+        $vidCondition = $vid ? ' AND vid_id = '. $this->pdo->getDbh()->quote($vid): '';
 
         $sql = <<<SQL
 SELECT* 
@@ -62,5 +62,14 @@ SQL;
         $result = $this->pdo->execute('selectAll', $sql );
 
         return $result;
+    }
+
+    public function getAddResults($lastname,$firstname,$midname,$birthday){
+        $sql = <<<SQL
+INSERT INTO blacklist_client (lastname,firstname,midname,birthday) VALUES (?,?,?,?)
+SQL;
+   //     $result = $this->pdo->execute('selectAll', $sql ,[$lastname,$firstname,$midname,$birthday]);
+
+        return $result=[];
     }
 }

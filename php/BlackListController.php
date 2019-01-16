@@ -90,6 +90,26 @@ if(!empty($_POST['submit'])){
     private function getCheckResults($lastname,$firstname,$midname,$birthday,$vid){
         return $this->model->getCheckResults($lastname,$firstname,$midname,$birthday,$vid);
     }
+
+    private function getAddResults($lastname,$firstname,$midname,$birthday,$vid){
+        return $this->model->getAddResults($lastname,$firstname,$midname,$birthday,$vid);
+    }
+
+    public function add($lastname,$firstname,$midname,$birthday,$vid){
+        $vids = $this->model->getVidsInsurance();
+        $addResults = $this->getAddResults($lastname,$firstname,$midname,$birthday,$vid);
+        $params=[
+            'lastname'=>$lastname,
+            'firstname'=>$firstname,
+            'midname'=>$midname,
+            'birthday'=>$birthday,
+            'vid'=>$vid,
+            'vids'=>$vids,
+            'addResults'=>$addResults,
+        ];
+        $content = $this->view->renderAddView($params);
+        echo $this->mainView($content);
+    }
     public function check($lastname,$firstname,$midname,$birthday,$vid){
         $vids = $this->model->getVidsInsurance();
         $checkResults = $this->getCheckResults($lastname,$firstname,$midname,$birthday,$vid);

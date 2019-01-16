@@ -1,12 +1,24 @@
 <div class="blacklist-left">
-
     <div>
-        <a>Проверить</a>
+        <form action="/index.php" method="post" enctype="text/html">
+
+        <input type="hidden" name="command" value="check" />
+
+        <a  href="#" onclick="event.preventDefault(); this.parentNode.submit()">Проверить</a>
+
+        </form>
     </div>
 
     <div>
         {% if allow_edit == 1 %}
-            <a>Добавить </a>
+            <form action="/index.php" method="post" enctype="text/html">
+
+                <input type="hidden" name="command" value="add" />
+
+                <a  href="#" onclick="event.preventDefault(); this.parentNode.submit()">Добавить</a>
+
+            </form>
+
         {% endif %}
     </div>
 </div>
