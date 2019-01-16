@@ -91,19 +91,19 @@ if(!empty($_POST['submit'])){
         return $this->model->getCheckResults($lastname,$firstname,$midname,$birthday,$vid);
     }
 
-    private function getAddResults($lastname,$firstname,$midname,$birthday,$vid_id,$comment_info){
-        return $this->model->getAddResults($lastname,$firstname,$midname,$birthday,$vid_id, $comment_info);
+    private function addClient($lastname,$firstname,$midname,$birthday,$vid_id,$comment_info){
+        return $this->model->addClient($lastname,$firstname,$midname,$birthday,$vid_id, $comment_info);
     }
     private function getLastAddedClient(){
         return $this->model->getLastAddedClient();
     }
     public function add($lastname,$firstname,$midname,$birthday,$vid_id,$comment_info){
-        if($lastname!='' && $firstname!='' && $midname!='' && $birthday!=''){
-            $addResults = $this->getAddResults($lastname,$firstname,$midname,$birthday,$vid_id,$comment_info);
+        if($lastname!='' && $firstname!='' && $midname!='' && $birthday!='' && $vid_id!=''){
+            $addClient = $this->addClient($lastname,$firstname,$midname,$birthday,$vid_id,$comment_info);
 
         }else{
             echo "<span class='blacklist-span-red'>Поля, отмеченные звездочками, являются обязательными.</span>";
-            $addResults=[];
+            $addClient=[];
             $addedResults =[];
         }
         $addedResults = $this->getLastAddedClient();

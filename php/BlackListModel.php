@@ -19,23 +19,24 @@ class BlackListModel
 
     }
 
-    public  function checkLogin($login, $password)
+    public function checkLogin($login, $password)
     {
         $this->logger->info('$login = ' . $login);
         $this->logger->info('$password = ' . $password);
         $sql = 'select user_id, password, allow_edit from blacklist_user where login=? and active=1';
         $result = $this->pdo->execute('selectOne', $sql, array($login));
 
-      //  $this->logger->info('result = ' . print_r($result, true));
+        //  $this->logger->info('result = ' . print_r($result, true));
         if ($result && $result->password === sha1($password)) {
-            return ['user_id'=>$result->user_id,
-                    'allow_edit'=>$result->allow_edit
+            return ['user_id' => $result->user_id,
+                'allow_edit' => $result->allow_edit
             ];
         }
         return false;
     }
 
-    public  function getVidsInsurance(){
+    public function getVidsInsurance()
+    {
         $sql = <<<SQL
 SELECT id, name FROM blacklist_vid_insurance ORDER BY name
 SQL;
@@ -44,12 +45,13 @@ SQL;
     }
 
 
-    public function getCheckResults($lastname,$firstname,$midname,$birthday,$vid){
-        $lastnameCondition = $lastname ? ' AND lastname rlike '. $this->pdo->getDbh()->quote($lastname): '';
-        $firstCondition = $firstname ? ' AND firstname rlike '. $this->pdo->getDbh()->quote($firstname): '';
-        $midnameCondition = $midname ? ' AND midname rlike '. $this->pdo->getDbh()->quote($midname): '';
-        $birthdayCondition = $birthday ? ' AND birthday = '. $this->pdo->getDbh()->quote($birthday): '';
-        $vidCondition = $vid ? ' AND vid_id = '. $this->pdo->getDbh()->quote($vid): '';
+    public function getCheckResults($lastname, $firstname, $midname, $birthday, $vid)
+    {
+        $lastnameCondition = $lastname ? ' AND lastname rlike ' . $this->pdo->getDbh()->quote($lastname) : '';
+        $firstCondition = $firstname ? ' AND firstname rlike ' . $this->pdo->getDbh()->quote($firstname) : '';
+        $midnameCondition = $midname ? ' AND midname rlike ' . $this->pdo->getDbh()->quote($midname) : '';
+        $birthdayCondition = $birthday ? ' AND birthday = ' . $this->pdo->getDbh()->quote($birthday) : '';
+        $vidCondition = $vid ? ' AND vid_id = ' . $this->pdo->getDbh()->quote($vid) : '';
 
         $sql = <<<SQL
 SELECT* 
@@ -69,20 +71,41 @@ SQL;
         return $result;
     }
 
-    public function getAddResults($lastname,$firstname,$midname,$birthday,$vid_id, $comment_info){
-       $sql = <<<SQL
+    public function addClient($lastname, $firstname, $midname, $birthday, $vid_id, $comment_info)
+    {
+        $this->pdo->getDbh()->beginTransaction();
+        try {
+            $sql = <<<SQL
 INSERT INTO blacklist_client (`lastname`, `firstname`, `midname`, `birthday`,  `user_id`) VALUES (?,?,?,?,?);
+SQL;
+            $result = $this->pdo->execute('execute', $sql,
+                [$lastname, $firstname, $midname, $birthday, $_SESSION['user_id']]);
+            if ($result) {
+                $sql = <<<SQL
 INSERT INTO blacklist_client_info(`client_id`,`user_id`,`comment`,`vid_id`)       
        values((SELECT MAX(`client_id`) FROM blacklist_client),?,?,?) ;
 SQL;
+                $result = $this->pdo->execute('execute', $sql,
+                    [$_SESSION['user_id'], $comment_info, $vid_id]);
+            }
+            if($result){
+                $this->pdo->getDbh()->commit();
+            }else{
+                $this->pdo->getDbh()->rollBack();
+            }
+        } catch (PDOException $err) {
+            $result = false;
+            $this->pdo->getDbh()->rollBack();
+        }
 
 
-      $result = $this->pdo->execute('execute', $sql ,[$lastname,$firstname,$midname,$birthday,$_SESSION['user_id'],$_SESSION['user_id'],$comment_info,$vid_id]);
-
-      return $result;
+        return $result;
     }
 
-    public function getLastAddedClient(){
+
+
+    public function getLastAddedClient()
+    {
         $sql = <<<SQL
 SELECT cl.client_id, 
        cl.lastname, 
@@ -106,11 +129,12 @@ left join blacklist_user us ON us.user_id = cl.user_id
 left join blacklist_vid_insurance vi ON vi.id = inf.vid_id
 where cl.client_id = (SELECT MAX(client_id) from blacklist_client)
 SQL;
-        $result = $this->pdo->execute('selectAll', $sql );
+        $result = $this->pdo->execute('selectAll', $sql);
         return $result;
     }
 
-    public function getUser($user_id){
+    public function getUser($user_id)
+    {
         $sql = <<<SQL
 SELECT email, manager FROM blacklist_user
 WHERE user_id=?
