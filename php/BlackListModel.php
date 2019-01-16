@@ -68,4 +68,55 @@ SQL;
         }
         return $result;
     }
+
+    public function getAddResults($lastname,$firstname,$midname,$birthday,$vid_id, $comment_info){
+       $sql = <<<SQL
+INSERT INTO blacklist_client (`lastname`, `firstname`, `midname`, `birthday`,  `user_id`) VALUES (?,?,?,?,?);
+INSERT INTO blacklist_client_info(`client_id`,`user_id`,`comment`,`vid_id`)       
+       values((SELECT MAX(`client_id`) FROM blacklist_client),?,?,?) ;
+SQL;
+
+
+      $result = $this->pdo->execute('execute', $sql ,[$lastname,$firstname,$midname,$birthday,$_SESSION['user_id'],$_SESSION['user_id'],$comment_info,$vid_id]);
+
+      return $result;
+    }
+
+    public function getLastAddedClient(){
+        $sql = <<<SQL
+SELECT cl.client_id, 
+       cl.lastname, 
+       cl.firstname, 
+       cl.midname, 
+       cl.birthday, 
+       cl.user_id,
+       inf.user_id, 
+       inf.comment,
+       inf.vid_id,
+       inf.client_id , 
+       us.manager, 
+       us.email, 
+       us.user_id,
+       vi.id,
+       vi.name as insurance_name
+       
+from blacklist_client cl 
+left join   blacklist_client_info inf ON inf.client_id = cl.client_id
+left join blacklist_user us ON us.user_id = cl.user_id
+left join blacklist_vid_insurance vi ON vi.id = inf.vid_id
+where cl.client_id = (SELECT MAX(client_id) from blacklist_client)
+SQL;
+        $result = $this->pdo->execute('selectAll', $sql );
+        return $result;
+    }
+
+    public function getUser($user_id){
+        $sql = <<<SQL
+SELECT email, manager FROM blacklist_user
+WHERE user_id=?
+SQL;
+
+        $result = $this->pdo->execute('selectOne', $sql, array($user_id));
+        return $result;
+    }
 }

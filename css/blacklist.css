@@ -60,7 +60,7 @@ body{
     border: 2px solid;
     border-radius: 1px;
     transition: 0.2s;
-width:70%;
+    width:70%;
     margin:10px 20px;
 }
 .blacklist-left a:hover{
@@ -74,6 +74,15 @@ div.blacklist-check-wrapper{
   padding: 20px;
 
 }
+div.blacklist-check-wrapper span{
+    color: #c40000;
+    font-size: 1.1em;
+}
+span.blacklist-span-red{
+    color: #c40000;
+    font-size: 1.2em;
+}
+
 table.blacklist-table{
     width:100%;
 }
@@ -122,8 +131,8 @@ input[type="submit"]:active{
 }
 
 input[type="submit"]:hover{
-    border-color: #ff0000;
-    border: 1px solid transparent;
+    border-color: #1042ff !important;
+    border: 2px solid transparent;
 
 }
 

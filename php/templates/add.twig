@@ -5,20 +5,20 @@
 
             <input type="hidden" name="command" value="add">
 
-            <label>фамилия </label>
+            <label>фамилия <span>*</span> </label>
             <input type="text" name="lastname" value='{{ lastname }}'> &nbsp;&nbsp;&nbsp;&nbsp;
 
-            <label>имя</label>
+            <label>имя <span>*</span></label>
             <input type="text" name="firstname" value='{{ firstname }}'> &nbsp;&nbsp;&nbsp;&nbsp;
 
-            <label>отчество</label>
+            <label>отчество <span>*</span></label>
             <input type="text" name="midname" value='{{ midname }}'> <br/><br/>
 
-            <label>дата рождения</label>
+            <label>дата рождения <span>*</span></label>
             <input type="date" name="birthday" value='{{ birthday }}'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-            <label>вид страхования</label>
-            <select name="vid"  >
+            <label>вид страхования <span>*</span></label>
+            <select name="vid_id"  >
                 <option value="0">выберите ...</option>
                 {% for vid in vids %}
                     <option  value="{{ vid.id }}">{{ vid.name }}</option>
@@ -26,7 +26,7 @@
             </select>
             <br/><br/>
             <label>комментарий</label>
-            <p><textarea rows="10" cols="45" name="text"></textarea></p>
+            <p><textarea rows="10" cols="45" name="comment_info"></textarea></p>
             <h4><input type="submit" value="Добавить" class="blacklist-submit-button"></h4>
 
             <br/><br/>
@@ -35,6 +35,7 @@
     </div>
 
     <div>
+        <h3>Последний введенный клиент</h3>
         <table class="blacklist-table">
             <tr>
                 <th>ID</th>
@@ -44,20 +45,22 @@
                 <th>дата рождения  </th>
                 <th>ФИО менеджера  </th>
                 <th>email менеджера  </th>
+                <th>вид страхования  </th>
                 <th>комментарий  </th>
             </tr>
-            {% for checkResult in checkResults %}
+
             <tr>
-                <td>{{ checkResult.client_id }}</td>
-                <td>{{ checkResult.lastname }}</td>
-                <td>{{ checkResult.firstname }}</td>
-                <td>{{ checkResult.midname }}</td>
-                <td>{{ checkResult.birthday }}</td>
-                <td>{{ checkResult.manager }}</td>
-                <td><a href="mailto:{{ checkResult.email }}">{{ checkResult.email }}</a></td>
-                <td>{{ checkResult.comment }}</td>
+                <td>{{ addedResults.0.client_id }}</td>
+                <td>{{ addedResults.0.lastname }}</td>
+                <td>{{ addedResults.0.firstname }}</td>
+                <td>{{ addedResults.0.midname }}</td>
+                <td>{{ addedResults.0.birthday }}</td>
+                <td>{{ addedResults.0.manager }}</td>
+                <td><a href="mailto:{{ addedResults.0.email }}">{{ addedResults.0.email }}</a></td>
+                <td>{{ addedResults.0.insurance_name }}</td>
+                <td>{{ addedResults.0.comment }}</td>
             </tr>
-            {% endfor %}
+
         </table>
     </div>
 </div>
