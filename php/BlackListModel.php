@@ -49,7 +49,7 @@ SQL;
         $firstCondition = $firstname ? ' AND firstname rlike '. $this->pdo->getDbh()->quote($firstname): '';
         $midnameCondition = $midname ? ' AND midname rlike '. $this->pdo->getDbh()->quote($midname): '';
         $birthdayCondition = $birthday ? ' AND birthday = '. $this->pdo->getDbh()->quote($birthday): '';
-        $vidCondition = $vid ? ' AND vid_id = '. $this->pdo->getDbh()->quote($vid): 0;
+        $vidCondition = $vid ? ' AND vid_id = '. $this->pdo->getDbh()->quote($vid): '';
 
         $sql = <<<SQL
 SELECT* 
@@ -59,8 +59,13 @@ FROM blacklist_client cl ,
      
 where cl.client_id = inf.client_id AND cl.user_id = us.user_id   $lastnameCondition $firstCondition $midnameCondition $birthdayCondition $vidCondition
 SQL;
-        $result = $this->pdo->execute('selectAll', $sql );
-
+        try {
+            $result = $this->pdo->execute('selectAll', $sql);
+        } catch (Exception $ex) {
+            $logfile = 'log/debug.log';
+            file_put_contents($logfile, 'BlackListModel->getCheckResults() sql=' . $sql, FILE_APPEND);
+            throw $ex;
+        }
         return $result;
     }
 }
