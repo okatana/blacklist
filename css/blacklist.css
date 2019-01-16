@@ -74,6 +74,15 @@ div.blacklist-check-wrapper{
   padding: 20px;
 
 }
+div.blacklist-check-wrapper span{
+    color: #c40000;
+    font-size: 1.1em;
+}
+span.blacklist-span-red{
+    color: #c40000;
+    font-size: 1.2em;
+}
+
 table.blacklist-table{
     width:100%;
 }

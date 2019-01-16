@@ -87,14 +87,18 @@ SELECT cl.client_id,
        cl.user_id,
        inf.user_id, 
        inf.comment,
+       inf.vid_id,
        inf.client_id , 
        us.manager, 
        us.email, 
-       us.user_id
+       us.user_id,
+       vi.id,
+       vi.name as insurance_name
        
 from blacklist_client cl 
 left join   blacklist_client_info inf ON inf.client_id = cl.client_id
 left join blacklist_user us ON us.user_id = cl.user_id
+left join blacklist_vid_insurance vi ON vi.id = inf.vid_id
 where cl.client_id = (SELECT MAX(client_id) from blacklist_client)
 SQL;
         $result = $this->pdo->execute('selectAll', $sql );

@@ -5,19 +5,19 @@
 
             <input type="hidden" name="command" value="add">
 
-            <label>фамилия </label>
+            <label>фамилия <span>*</span> </label>
             <input type="text" name="lastname" value='{{ lastname }}'> &nbsp;&nbsp;&nbsp;&nbsp;
 
-            <label>имя</label>
+            <label>имя <span>*</span></label>
             <input type="text" name="firstname" value='{{ firstname }}'> &nbsp;&nbsp;&nbsp;&nbsp;
 
-            <label>отчество</label>
+            <label>отчество <span>*</span></label>
             <input type="text" name="midname" value='{{ midname }}'> <br/><br/>
 
-            <label>дата рождения</label>
+            <label>дата рождения <span>*</span></label>
             <input type="date" name="birthday" value='{{ birthday }}'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-            <label>вид страхования</label>
+            <label>вид страхования <span>*</span></label>
             <select name="vid_id"  >
                 <option value="0">выберите ...</option>
                 {% for vid in vids %}
@@ -45,6 +45,7 @@
                 <th>дата рождения  </th>
                 <th>ФИО менеджера  </th>
                 <th>email менеджера  </th>
+                <th>вид страхования  </th>
                 <th>комментарий  </th>
             </tr>
 
@@ -56,6 +57,7 @@
                 <td>{{ addedResults.0.birthday }}</td>
                 <td>{{ addedResults.0.manager }}</td>
                 <td><a href="mailto:{{ addedResults.0.email }}">{{ addedResults.0.email }}</a></td>
+                <td>{{ addedResults.0.insurance_name }}</td>
                 <td>{{ addedResults.0.comment }}</td>
             </tr>
 

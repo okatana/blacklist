@@ -102,7 +102,7 @@ if(!empty($_POST['submit'])){
             $addResults = $this->getAddResults($lastname,$firstname,$midname,$birthday,$vid_id,$comment_info);
 
         }else{
-            echo 'Поля, отмеченные звездочками, являются обязательными.';
+            echo "<span class='blacklist-span-red'>Поля, отмеченные звездочками, являются обязательными.</span>";
             $addResults=[];
             $addedResults =[];
         }
