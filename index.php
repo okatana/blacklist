@@ -37,8 +37,9 @@ switch ($command){
         if(isset($_POST['firstname'])){$firstname = $_POST['firstname']; }else{$firstname = '';};
         if(isset($_POST['midname'])){$midname = $_POST['midname']; }else{$midname = '';};
         if(isset($_POST['birthday'])){$birthday = $_POST['birthday']; }else{$birthday = '';};
-        if(isset($_POST['vid'])){$vid = $_POST['vid']; }else{$vid = '';};
-        $controller->add($lastname,$firstname,$midname,$birthday,$vid);
+        if(isset($_POST['vid_id'])){$vid_id = $_POST['vid_id']; }else{$vid_id = '';};
+        if(isset($_POST['comment_info'])){$comment_info = $_POST['comment_info']; }else{$comment_info = '';};
+        $controller->add($lastname,$firstname,$midname,$birthday,$vid_id,$comment_info);
         break;
     case 'check':
         if(isset($_POST['lastname'])){$lastname = $_POST['lastname']; }else{$lastname = '';};
@@ -46,6 +47,7 @@ switch ($command){
         if(isset($_POST['midname'])){$midname = $_POST['midname']; }else{$midname = '';};
         if(isset($_POST['birthday'])){$birthday = $_POST['birthday']; }else{$birthday = '';};
         if(isset($_POST['vid'])){$vid = $_POST['vid']; }else{$vid = '';};
+        if(isset($_POST['comment_info'])){$comment_info = $_POST['comment_info']; }else{$comment_info = '';};
 
          $controller->check($lastname,$firstname,$midname,$birthday,$vid);
         break;

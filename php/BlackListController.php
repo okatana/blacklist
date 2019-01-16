@@ -91,21 +91,31 @@ if(!empty($_POST['submit'])){
         return $this->model->getCheckResults($lastname,$firstname,$midname,$birthday,$vid);
     }
 
-    private function getAddResults($lastname,$firstname,$midname,$birthday,$vid){
-        return $this->model->getAddResults($lastname,$firstname,$midname,$birthday,$vid);
+    private function getAddResults($lastname,$firstname,$midname,$birthday,$vid_id,$comment_info){
+        return $this->model->getAddResults($lastname,$firstname,$midname,$birthday,$vid_id, $comment_info);
     }
+    private function getLastAddedClient(){
+        return $this->model->getLastAddedClient();
+    }
+    public function add($lastname,$firstname,$midname,$birthday,$vid_id,$comment_info){
+        if($lastname!='' && $firstname!='' && $midname!='' && $birthday!=''){
+            $addResults = $this->getAddResults($lastname,$firstname,$midname,$birthday,$vid_id,$comment_info);
 
-    public function add($lastname,$firstname,$midname,$birthday,$vid){
+        }else{
+            echo 'Поля, отмеченные звездочками, являются обязательными.';
+            $addResults=[];
+            $addedResults =[];
+        }
+        $addedResults = $this->getLastAddedClient();
         $vids = $this->model->getVidsInsurance();
-        $addResults = $this->getAddResults($lastname,$firstname,$midname,$birthday,$vid);
         $params=[
-            'lastname'=>$lastname,
-            'firstname'=>$firstname,
-            'midname'=>$midname,
-            'birthday'=>$birthday,
-            'vid'=>$vid,
+            'lastname'=>'',
+            'firstname'=>'',
+            'midname'=>'',
+            'birthday'=>'',
+            'vid_id'=>'',
             'vids'=>$vids,
-            'addResults'=>$addResults,
+            'addedResults'=>$addedResults,
         ];
         $content = $this->view->renderAddView($params);
         echo $this->mainView($content);

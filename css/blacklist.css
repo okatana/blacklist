@@ -60,7 +60,7 @@ body{
     border: 2px solid;
     border-radius: 1px;
     transition: 0.2s;
-width:70%;
+    width:70%;
     margin:10px 20px;
 }
 .blacklist-left a:hover{
@@ -122,8 +122,8 @@ input[type="submit"]:active{
 }
 
 input[type="submit"]:hover{
-    border-color: #ff0000;
-    border: 1px solid transparent;
+    border-color: #1042ff !important;
+    border: 2px solid transparent;
 
 }
 
