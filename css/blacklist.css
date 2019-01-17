@@ -121,18 +121,30 @@ input.blacklist-submit{
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
-.blacklist-submit-button{
-    padding:5px;
+.blacklist-submit-button,
+.excel-button{
+    padding:9px;
 }
-input[type="submit"]:active{
+input[type="submit"]:active,
+:active{
     border-color: #007bff;
     border: 1px solid transparent;
 
 }
 
-input[type="submit"]:hover{
+input[type="submit"]:hover,
+.excel-button:hover{
     border-color: #1042ff !important;
     border: 2px solid transparent;
+    padding:9px;
+
+}
+a.excel-button{
+    text-decoration: none;
+    font-weight: bold;
+    border-color: #194776 !important;
+    border: 2px solid transparent;
+    padding:9px;
 
 }
 
