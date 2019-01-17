@@ -158,7 +158,6 @@ class BlackListExcel
 
 //  $objWriter->save('php://output');
         $tmp_dir = $this->get_temp_dir();
-        print_r($tmp_dir, true);
 //  $file = $upload_dir['path'] . time() . '.requests.xlsx';
 
 //  $filePath = sys_get_temp_dir() . "/" . rand(0, getrandmax()) . rand(0, getrandmax()) . ".tmp";
@@ -175,7 +174,7 @@ class BlackListExcel
     private function get_temp_dir()
     {
         if ($this->tmpdir == '')
-            $this->tmpdir = sys_get_temp_dir();  //может зависеть от сайта
+            $this->tmpdir = sys_get_temp_dir();  //может зависеть от сайта  но на локалке сюда не попадаем - см кофигурационный файл и конструктор - 
 
         return $this->tmpdir;
 //    return = (wp_upload_dir())['path']; для WP
