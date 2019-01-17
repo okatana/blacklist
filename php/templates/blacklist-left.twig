@@ -21,4 +21,34 @@
 
         {% endif %}
     </div>
+
+    <div>
+        {% if allow_edit == 1 %}
+            <form action="/index.php" method="post" enctype="text/html">
+
+                <input type="hidden" name="command" value="addFromFile" />
+
+                <a  href="#" onclick="event.preventDefault(); this.parentNode.submit()">Добавить из файла</a>
+
+            </form>
+
+        {% endif %}
+    </div>
+
+
+    <div>
+        {% if allow_edit == 1 %}
+            <form action="/index.php" method="post" enctype="text/html">
+
+                <input type="hidden" name="command" value="toExcel" />
+
+                <a  href="#" onclick="event.preventDefault(); this.parentNode.submit()">Выгрузить в excel</a>
+
+            </form>
+
+        {% endif %}
+    </div>
+
+
+
 </div>

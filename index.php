@@ -41,6 +41,14 @@ switch ($command){
         if(isset($_POST['comment_info'])){$comment_info = $_POST['comment_info']; }else{$comment_info = '';};
         $controller->add($lastname,$firstname,$midname,$birthday,$vid_id,$comment_info);
         break;
+    case 'addFromFile':
+        $controller->addFromFile();
+        break;
+    case 'getFile':
+        $controller->getFile($_FILES['userfile']['size']);
+    case 'toExcel':
+        $controller->toExcel();
+        break;
     case 'check':
         if(isset($_POST['lastname'])){$lastname = $_POST['lastname']; }else{$lastname = '';};
         if(isset($_POST['firstname'])){$firstname = $_POST['firstname']; }else{$firstname = '';};

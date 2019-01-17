@@ -8,6 +8,7 @@
 require 'MyLogger.php';
 require 'BlackListModel.php';
 require 'BlackListView.php';
+require 'BlackListExcel.php';
 /*
 require_once 'vendor/autoload.php';
 use MyLogger;
@@ -73,30 +74,8 @@ if(!empty($_POST['submit'])){
         $content = $this->view->renderCheckView($params);
         return $this->mainView($content);
     }
-   /* private function getCheckResults0(){
-        return [
-            ['lastname'=>'иванов1',
-                'firstname'=>'иван',
-                'midname'=>'иванович',
-                'birthday'=>'1900-11-21'
-            ],
-            ['lastname'=>'иванов2',
-                'firstname'=>'иван',
-                'midname'=>'иванович',
-                'birthday'=>'1900-11-21'
-            ]
-        ];
-    }*/
-    private function getCheckResults($lastname,$firstname,$midname,$birthday,$vid){
-        return $this->model->getCheckResults($lastname,$firstname,$midname,$birthday,$vid);
-    }
 
-    private function addClient($lastname,$firstname,$midname,$birthday,$vid_id,$comment_info){
-        return $this->model->addClient($lastname,$firstname,$midname,$birthday,$vid_id, $comment_info);
-    }
-    private function getLastAddedClient(){
-        return $this->model->getLastAddedClient();
-    }
+
     public function add($lastname,$firstname,$midname,$birthday,$vid_id,$comment_info){
         if($lastname!='' && $firstname!='' && $midname!='' && $birthday!='' && $vid_id!=''){
             $addClient = $this->addClient($lastname,$firstname,$midname,$birthday,$vid_id,$comment_info);
@@ -135,4 +114,40 @@ if(!empty($_POST['submit'])){
         $content = $this->view->renderCheckView($params);
         echo $this->mainView($content);
     }
+
+    public function addFromFile(){
+        $content = $this->view->renderAddFromFileView();
+        echo $this->mainView($content);
+    }
+
+    public function getFile($size){
+        echo $size;
+
+    }
+
+    public function toExcel(){
+
+        $content = $this->view->renderToExcelView();
+        echo $this->mainView($content);
+    }
+    public function excel($vids=''){
+        $tmpdir = $this->config['mod-tmp'];
+        // $this->logger->info('model = '. print_r($this->model->getDepartmentForDate($fordate)));
+        (new BlackListExcel($tmpdir))->toExcel($this->model, $vids);
+    }
+
+
+
+
+    private function getCheckResults($lastname,$firstname,$midname,$birthday,$vid){
+        return $this->model->getCheckResults($lastname,$firstname,$midname,$birthday,$vid);
+    }
+
+    private function addClient($lastname,$firstname,$midname,$birthday,$vid_id,$comment_info){
+        return $this->model->addClient($lastname,$firstname,$midname,$birthday,$vid_id, $comment_info);
+    }
+    private function getLastAddedClient(){
+        return $this->model->getLastAddedClient();
+    }
+
 }

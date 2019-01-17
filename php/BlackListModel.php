@@ -143,4 +143,18 @@ SQL;
         $result = $this->pdo->execute('selectOne', $sql, array($user_id));
         return $result;
     }
+
+    public function getClientsByVids($vids){  //виды пока не учитываю
+        $sql = <<<SQL
+        SELECT 
+            cl.*, inf.*, us.*,ins.*
+            FROM blacklist_client cl
+            LEFT JOIN blacklist_client_info inf on inf.client_id = cl.client_id 
+            LEFT JOIN blacklist_user us on us.user_id = cl.user_id 
+            LEFT JOIN blacklist_vid_insurance ins on ins.id = inf.vid_id
+            where 1
+SQL;
+        $result = $this->pdo->execute('selectAll', $sql);
+        return $result;
+    }
 }

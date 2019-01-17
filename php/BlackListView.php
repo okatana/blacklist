@@ -33,4 +33,13 @@ class BlackListView
     public function renderAddView($params){
         return $this->twig->render('add.twig', $params);
     }
+
+    public function renderAddFromFileView(){
+        return $this->twig->render('addFromFile.twig');
+    }
+
+    public function renderToExcelView(){
+        return $this->twig->render('toExcel.twig');
+    }
+
 }
