@@ -21,15 +21,24 @@ class BlackListController
     private $model;
     private $view;
     private $logger;
-    private $user;
+    public $user;
+    private $mode;
 
-    function __construct($config)
+    function __construct($config,$mode='view')
     {
         $this->config = $config;
-        $this->logger = new MyLogger($config['logger']);
+        $this->mode = $mode;
+        if($mode=='view'){
+            $this->logger = new MyLogger($config['logger']);
+        }else{
+            $this->logger = null;
+        }
+
         $this->model = new BlackListModel($config, $this->logger);
-        //$this->model = new BlackListModel($config, null);
-        $this->view = new  BlackListView($config['autoloader']);
+        if ($this->mode == 'view') {
+            $this->view = new BlackListView($config['autoloader']);
+        }
+
     }
 
     public function getModel(){
@@ -48,15 +57,20 @@ class BlackListController
 /*            if(true){
                 return;
             }*/
-            echo  $this->checkView();
+            if ($this->mode == 'view') {
+                echo $this->checkView();
+            }
         } else {
-
-            echo $this->view->renderError('Нет прав.');
+            if ($this->mode == 'view') {
+                echo $this->view->renderError('Нет прав.');
+            }
         }
     }
+
     private function mainView($content, $allow_edit){
         return $this->view->renderMainView($content, $allow_edit);
     }
+
     private function checkView(){
         $vids = $this->model->getVidsInsurance();
         $checkResults = [];
@@ -114,22 +128,24 @@ if(!empty($_POST['submit'])){
         $content = $this->view->renderAddView($params);
         echo $this->mainView($content, $_SESSION['allow_edit']);
     }
-    public function check($lastname,$firstname,$midname,$birthday,$vid,$api){
+
+    public function check($lastname,$firstname,$midname,$birthday,$vid){
         $vids = $this->model->getVidsInsurance();
         $checkResults = $this->getCheckResults($lastname,$firstname,$midname,$birthday,$vid);
 //echo '$api======='.$api;
-/*        if(true){
+
+        if($this->mode == 'api'){
             //print_r($checkResults);
             $result='';
             if(count($checkResults)>=1){
                 $resultObj = $checkResults[0];
                 $result = $resultObj->comment;
-
             }
-            return $result;
+         //   return $result;
+            echo $result;
 
         }
-        else{*/
+        else{
             $params=[
                 'lastname'=>$lastname,
                 'firstname'=>$firstname,
@@ -142,7 +158,7 @@ if(!empty($_POST['submit'])){
             ];
             $content = $this->view->renderCheckView($params);
             echo $this->mainView($content, $_SESSION['allow_edit']);
-//        }
+        }
 
 
 

@@ -22,12 +22,16 @@ class BlackListModel
 
     public function checkLogin($login, $password)
     {
-        $this->logger->info('$login = ' . $login);
-        $this->logger->info('$password = ' . $password);
+        if ($this->logger) {
+            $this->logger->info('$login = ' . $login);
+            $this->logger->info('$password = ' . $password);
+        }
         $sql = 'select user_id, password, allow_edit from blacklist_user where login=? and active=1';
         $result = $this->pdo->execute('selectOne', $sql, array($login));
 
-          $this->logger->info('result = ' . print_r($result, true));
+        if ($this->logger) {
+            $this->logger->info('result = ' . print_r($result, true));
+        }
         if ($result && $result->password === sha1($password)) {
             return ['user_id' => $result->user_id,
                 'allow_edit' => $result->allow_edit
