@@ -53,10 +53,7 @@ class BlackListController
             $this->user = $user;
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['allow_edit'] = $user['allow_edit'];//доступ данного менеджера к редактированию. Если = 1, то может все: редактировать и смотреть-проверять
-            //if($_POST['api']==1){
-/*            if(true){
-                return;
-            }*/
+
             if ($this->mode == 'view') {
                 echo $this->checkView();
             }
@@ -132,17 +129,22 @@ if(!empty($_POST['submit'])){
     public function check($lastname,$firstname,$midname,$birthday,$vid){
         $vids = $this->model->getVidsInsurance();
         $checkResults = $this->getCheckResults($lastname,$firstname,$midname,$birthday,$vid);
-//echo '$api======='.$api;
 
-        if($this->mode == 'api'){
-            //print_r($checkResults);
+        if($this->mode == 'api' || $this->mode == 'apitest'){
+            if($this->mode == 'apitest'){
+                print_r($checkResults);
+            }
             $result='';
             if(count($checkResults)>=1){
                 $resultObj = $checkResults[0];
                 $result = $resultObj->comment;
             }
-         //   return $result;
-            echo $result;
+
+            if($this->mode == 'apitest'){
+                echo $result;
+            }else{
+                return $result;
+            }
 
         }
         else{
