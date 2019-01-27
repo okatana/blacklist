@@ -1,3 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <title>Проверка клиентов</title>
+    <link rel='stylesheet' href='css/blacklist.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='css/blacklistIndexHtml.css' type='text/css' media='all' />
+
+    <link rel="shortcut icon" type="image/x-icon" href="images/1548252846.ico">
+</head>
+<body>
+
 <div class="blacklist-check-wrapper">
     <h3>Добавление нового клиента    (addView)</h3><br/><br/>
     <div>
@@ -6,10 +19,10 @@
             <input type="hidden" name="command" value="add">
 
             <label>фамилия <span>*</span> </label>
-            <input type="text" name="lastname" value='{{ lastname }}'> &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" name="lastname" value='{{ lastname }}'> <br/><br/>
 
             <label>имя <span>*</span></label>
-            <input type="text" name="firstname" value='{{ firstname }}'> &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" name="firstname" value='{{ firstname }}'> <br/><br/>
 
             <label>отчество <span>*</span></label>
             <input type="text" name="midname" value='{{ midname }}'> <br/><br/>
@@ -26,7 +39,7 @@
             </select>
             <br/><br/>
             <label>комментарий</label>
-            <p><textarea rows="10" cols="45" name="comment_info"></textarea></p>
+            <p><textarea rows="10" cols="45" name="comment_info" style="width:100%"></textarea></p>
             <h4><input type="submit" value="Добавить" class="blacklist-submit-button"></h4>
 
             <br/><br/>
@@ -59,9 +72,11 @@
                 <td>{{ addedResults.0.manager }}</td>
                 <td><a href="mailto:{{ addedResults.0.email }}">{{ addedResults.0.email }}</a></td>
                 <td>{{ addedResults.0.insurance_name }}</td>
-                <td>{{ addedResults.0.comment }}</td>
+                <td>{{ addedResults.0.comment |raw}}</td>
             </tr>
 
         </table>
     </div>
 </div>
+</body>
+</html>

@@ -22,27 +22,40 @@ class BlackListController
     private $view;
     private $logger;
     private $user;
+
     function __construct($config)
     {
         $this->config = $config;
         $this->logger = new MyLogger($config['logger']);
         $this->model = new BlackListModel($config, $this->logger);
+        //$this->model = new BlackListModel($config, null);
         $this->view = new  BlackListView($config['autoloader']);
+    }
+
+    public function getModel(){
+        return $this->model;
     }
     public function login($login, $password)
     {
         $user = $this->model->checkLogin($login, $password);//arr
+
         if ($user) {
+
             $this->user = $user;
             $_SESSION['user_id'] = $user['user_id'];
-            $_SESSION['allow_edit'] = $user['allow_edit']; //доступ данного менеджера к редактированию. Если = 1, то может все: редактировать и смотреть-проверять
+            $_SESSION['allow_edit'] = $user['allow_edit'];//доступ данного менеджера к редактированию. Если = 1, то может все: редактировать и смотреть-проверять
+            //if($_POST['api']==1){
+/*            if(true){
+                return;
+            }*/
             echo  $this->checkView();
         } else {
+
             echo $this->view->renderError('Нет прав.');
         }
     }
-    private function mainView($content){
-        return $this->view->renderMainView($content);
+    private function mainView($content, $allow_edit){
+        return $this->view->renderMainView($content, $allow_edit);
     }
     private function checkView(){
         $vids = $this->model->getVidsInsurance();
@@ -71,13 +84,15 @@ if(!empty($_POST['submit'])){
             'vids'=>$vids,
             'checkResults'=>$checkResults,
         ];
+
         $content = $this->view->renderCheckView($params);
-        return $this->mainView($content);
+        return $this->mainView($content, $_SESSION['allow_edit']);
     }
 
 
     public function add($lastname,$firstname,$midname,$birthday,$vid_id,$comment_info){
         if($lastname!='' && $firstname!='' && $midname!='' && $birthday!='' && $vid_id!=''){
+
             $addClient = $this->addClient($lastname,$firstname,$midname,$birthday,$vid_id,$comment_info);
 
         }else{
@@ -97,41 +112,65 @@ if(!empty($_POST['submit'])){
             'addedResults'=>$addedResults,
         ];
         $content = $this->view->renderAddView($params);
-        echo $this->mainView($content);
+        echo $this->mainView($content, $_SESSION['allow_edit']);
     }
-    public function check($lastname,$firstname,$midname,$birthday,$vid){
+    public function check($lastname,$firstname,$midname,$birthday,$vid,$api){
         $vids = $this->model->getVidsInsurance();
         $checkResults = $this->getCheckResults($lastname,$firstname,$midname,$birthday,$vid);
-        $params=[
-            'lastname'=>$lastname,
-            'firstname'=>$firstname,
-            'midname'=>$midname,
-            'birthday'=>$birthday,
-            'vid'=>$vid,
-            'vids'=>$vids,
-            'checkResults'=>$checkResults,
-        ];
-        $content = $this->view->renderCheckView($params);
-        echo $this->mainView($content);
+//echo '$api======='.$api;
+/*        if(true){
+            //print_r($checkResults);
+            $result='';
+            if(count($checkResults)>=1){
+                $resultObj = $checkResults[0];
+                $result = $resultObj->comment;
+
+            }
+            return $result;
+
+        }
+        else{*/
+            $params=[
+                'lastname'=>$lastname,
+                'firstname'=>$firstname,
+                'midname'=>$midname,
+                'birthday'=>$birthday,
+                'vid'=>$vid,
+                'vids'=>$vids,
+                'checkResults'=>$checkResults,
+                'allow_edit'=>$_SESSION['allow_edit'],
+            ];
+            $content = $this->view->renderCheckView($params);
+            echo $this->mainView($content, $_SESSION['allow_edit']);
+//        }
+
+
+
     }
 
     public function addFromFile(){
-        $content = $this->view->renderAddFromFileView();
-        echo $this->mainView($content);
+        $vids = $this->model->getVidsInsurance();
+        $params=[
+            'allow_edit'=>$_SESSION['allow_edit'],
+            'vids'=>$vids,
+            ];
+
+        $content = $this->view->renderAddFromFileView($params, $_SESSION['allow_edit']);
+        echo $this->mainView($content, $_SESSION['allow_edit']);
     }
 
     public function getFile($size){
-        echo $size;
+        echo 12;
 
     }
 
     public function toExcel(){
 
         $content = $this->view->renderToExcelView();
-        echo $this->mainView($content);
+        echo $this->mainView($content, $_SESSION['allow_edit']);
     }
     public function excel($vids=''){
-        $tmpdir = $this->config['mod-tmp'];
+        $tmpdir = $this->config['tmpdir'];
         // $this->logger->info('model = '. print_r($this->model->getDepartmentForDate($fordate)));
         (new BlackListExcel($tmpdir))->toExcel($this->model, $vids);
     }
@@ -144,6 +183,7 @@ if(!empty($_POST['submit'])){
     }
 
     private function addClient($lastname,$firstname,$midname,$birthday,$vid_id,$comment_info){
+
         return $this->model->addClient($lastname,$firstname,$midname,$birthday,$vid_id, $comment_info);
     }
     private function getLastAddedClient(){

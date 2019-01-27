@@ -1,3 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <title>Проверка клиентов</title>
+    <link rel='stylesheet' href='css/blacklist.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='css/blacklistIndexHtml.css' type='text/css' media='all' />
+
+    <link rel="shortcut icon" type="image/x-icon" href="images/1548252846.ico">
+</head>
+<body>
 <div class="blacklist-check-wrapper">
     <h3>Загрузить новых клиентов в базу данных из файла    (addFromFile)</h3><br/><br/>
     <!--form action="index.php" method="post" enctype="text/html">
@@ -5,17 +17,41 @@
         <input type="file" name="command" value="getFile">
         <h4><input type="submit" value="Выбрать файл" class="blacklist-submit-button"></h4>
     </form-->
+    <p><b>ОГРАНИЧЕНИЯ:</b>
+        <ul>
+        <li>формат файла - csv . Если у Вас файл excel, то файл следует сохранить в формате csv.
+            разделитель - запятая, кодировка UTF8. Такой файл должен открываться простым текстовым редактором, например notepad
+        </li>
+        <li>ИМЯ файла должно содержать только латинские буквы и может иметь цифры, нижнее подчеркивание или дефис. КИРИЛЛИЦУ НЕ ИСПОЛЬЗОВАТЬ!!
+        </li>
+        <li></li>
+        <li></li>
+    </ul><i>
+            Пример:
+            ФАМИЛИЯ,ИМЯ,ОТЧЕСТВО,ДАТА РОЖДЕНИЯ,ВИД СТРАХОВАНИЯ,КОММЕНТАРИЙ,МЕНЕДЖЕР,EMAIL МЕНЕДЖЕРА
+            Нижибицкий,Михаил,Олегович,1962-09-24,ДМС,Для пролонгации полиса ДМС необходимо связаться с менеджером Симановой Аленой – по тел.<a href='tel:88126110297#2476'> (812) 611-02-97 доб.2476</a> email: <a href='email:simanovaav@guideh.com'>simanovaav@guideh.com</a>,Катанугина Ольга Сергеевна,katanugina@guideh.com
+            Фадзеева,Татьяна,Александровна,1991-08-26,ДМС,Для пролонгации полиса ДМС необходимо связаться с менеджером Симановой Аленой – по тел.<a href='tel:88126110297#2476'> (812) 611-02-97 доб.2476</a> email: <a href='email:simanovaav@guideh.com'>simanovaav@guideh.com</a>,Катанугина Ольга Сергеевна,katanugina@guideh.com
+            Фадеева,Татьяна,Александровна,1991-08-26,ДМС,Для пролонгации полиса ДМС необходимо связаться с менеджером Симановой Аленой – по тел.<a href='tel:88126110297#2476'> (812) 611-02-97 доб.2476</a> email: <a href='email:simanovaav@guideh.com'>simanovaav@guideh.com</a>,Катанугина Ольга Сергеевна,katanugina@guideh.com
+        </i></p>
 
     <!-- Тип кодирования данных, enctype, ДОЛЖЕН БЫТЬ указан ИМЕННО так -->
-    <form enctype="multipart/form-data" action="index.php" method="POST">
-        <!-- Поле MAX_FILE_SIZE должно быть указано до поля загрузки файла -->
-        <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-        <input type="hidden" name="command" value="getFile">
-        <!-- Название элемента input определяет имя в массиве $_FILES -->
-        <h5><strong>Выберите файл для загрузки:</strong></h5><br/>
-        <input name="userfile" type="file" /><br/>
-        <input type="submit" value="Отправить файл" />
-    </form>
-</div>
+       <form enctype="multipart/form-data" action="load.php" method="post">
+           <label>вид страхования <span>*</span></label>
+           <select name="vid_id"  >
+               <option value="0">выберите ...</option>
+               {% for vid in vids %}
+                   <option  value="{{ vid.id }}">{{ vid.name }}</option>
+               {% endfor %}
+           </select>
+           <br/><br/>
 
+        <input type="hidden" name="MAX_FILE_SIZE" value="60000" />
+        файл: <input name="userfile" type="file" />
+        <input type="submit" value="Загрузить" />
+    </form>
+
+
+</div>
+</body>
+</html>
 

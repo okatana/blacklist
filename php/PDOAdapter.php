@@ -1,5 +1,4 @@
 <?php
-
 class PDOAdapter {
   private $dbh;
   private $errorLogger;
@@ -105,7 +104,7 @@ class PDOAdapter {
     	$this->rowCount = $stmt->rowCount();
     else {
     	$this->rowCount = 0;
-      	$this->errorInfo = $e->errorInfo;
+//      	$this->errorInfo = $e->errorInfo;
     }
     return $success;
   }
@@ -131,11 +130,11 @@ class PDOAdapter {
 		    	$this->rowCount = $stmt->rowCount();
 		    else {
 		    	$this->rowCount = 0;
-		      	$this->errorInfo = $e->errorInfo;
+//		      	$this->errorInfo = $e->errorInfo;
 		    }
 		    return $success;
 	    } catch (PDOException $e) {
-				@$this->errorLogger->info("PDOAdapter $method() error: sql=\n$sql".
+				@$this->errorLogger->info("PDOAdapter error: ".
 						(isset($args) ? "\nargs=".print_r($args, true) : '')."\n".
 						$e->__toString());
 	      $this->errorInfo = $e->errorInfo;
