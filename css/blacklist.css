@@ -156,4 +156,13 @@ a.excel-button{
     width: 20%;
 }
 
-
+.red-span{
+    color:red;
+    font-weight: bold;
+}
+.comment{
+    background-color: #faf8e3;
+    border-radius: 10px;
+    border: #ebe9d4 solid 2px;
+    padding:10px;
+}

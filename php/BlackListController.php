@@ -107,7 +107,8 @@ if(!empty($_POST['submit'])){
             $addClient = $this->addClient($lastname,$firstname,$midname,$birthday,$vid_id,$comment_info);
 
         }else{
-            echo "<span class='blacklist-span-red'>Поля, отмеченные звездочками, являются обязательными.</span>";
+           // "<span class='blacklist-span-red'></span>";
+            echo "<script>alert(\"Поля, отмеченные звездочками, являются обязательными.\");</script>";
             $addClient=[];
             $addedResults =[];
         }
