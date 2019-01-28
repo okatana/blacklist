@@ -10,5 +10,5 @@ require 'php/BlackListController.php';
 
 // контроллер
 $controller = new BlackListController($config);
-$vids = ['dms'];
+$vids = 'dms';
 $controller->excel($vids);

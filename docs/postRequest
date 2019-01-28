@@ -1,0 +1,21 @@
+$url = 'http://bllist.guideh.com/api.php';
+$params = [
+  'apilogin'=>'check',
+  'apipassword'=>'check',
+  'lastname'=>'Нижибицкий',
+  'firstname' =>'',
+  'midname'=>'',
+  'birthday'=>'',
+  'vid'=>0,
+  ];
+$myCurl = curl_init();
+curl_setopt_array($myCurl, array(
+    CURLOPT_URL => 'http://target.site.com/form.php',
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_POST => true,
+    CURLOPT_POSTFIELDS => http_build_query($params),
+    CURLOPT_HTTPHEADER => array('Content-Type: application/json');
+));
+$response = curl_exec($myCurl);//json!!!
+
+curl_close($myCurl);

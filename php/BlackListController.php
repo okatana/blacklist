@@ -21,14 +21,28 @@ class BlackListController
     private $model;
     private $view;
     private $logger;
-    private $user;
+    public $user;
+    private $mode;
 
-    function __construct($config)
+    function __construct($config,$mode='view')
     {
         $this->config = $config;
-        $this->logger = new MyLogger($config['logger']);
+        $this->mode = $mode;
+        if($mode=='view'){
+            $this->logger = new MyLogger($config['logger']);
+        }else{
+            $this->logger = null;
+        }
+
         $this->model = new BlackListModel($config, $this->logger);
-        $this->view = new  BlackListView($config['autoloader']);
+        if ($this->mode == 'view') {
+            $this->view = new BlackListView($config['autoloader']);
+        }
+
+    }
+
+    public function getModel(){
+        return $this->model;
     }
     public function login($login, $password)
     {
@@ -39,15 +53,21 @@ class BlackListController
             $this->user = $user;
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['allow_edit'] = $user['allow_edit'];//доступ данного менеджера к редактированию. Если = 1, то может все: редактировать и смотреть-проверять
-            echo  $this->checkView();
-        } else {
 
-            echo $this->view->renderError('Нет прав.');
+            if ($this->mode == 'view') {
+                echo $this->checkView();
+            }
+        } else {
+            if ($this->mode == 'view') {
+                echo $this->view->renderError('Нет прав.');
+            }
         }
     }
-    private function mainView($content){
-        return $this->view->renderMainView($content, $_SESSION[]);
+
+    private function mainView($content, $allow_edit){
+        return $this->view->renderMainView($content, $allow_edit);
     }
+
     private function checkView(){
         $vids = $this->model->getVidsInsurance();
         $checkResults = [];
@@ -77,7 +97,7 @@ if(!empty($_POST['submit'])){
         ];
 
         $content = $this->view->renderCheckView($params);
-        return $this->mainView($content);
+        return $this->mainView($content, $_SESSION['allow_edit']);
     }
 
 
@@ -103,30 +123,58 @@ if(!empty($_POST['submit'])){
             'addedResults'=>$addedResults,
         ];
         $content = $this->view->renderAddView($params);
-        echo $this->mainView($content);
+        echo $this->mainView($content, $_SESSION['allow_edit']);
     }
+
     public function check($lastname,$firstname,$midname,$birthday,$vid){
         $vids = $this->model->getVidsInsurance();
         $checkResults = $this->getCheckResults($lastname,$firstname,$midname,$birthday,$vid);
 
-        $params=[
-            'lastname'=>$lastname,
-            'firstname'=>$firstname,
-            'midname'=>$midname,
-            'birthday'=>$birthday,
-            'vid'=>$vid,
-            'vids'=>$vids,
-            'checkResults'=>$checkResults,
-            'allow_edit'=>$_SESSION['allow_edit'],
-        ];
-        $content = $this->view->renderCheckView($params);
-        echo $this->mainView($content);
+        if($this->mode == 'api' || $this->mode == 'apitest'){
+            if($this->mode == 'apitest'){
+                print_r($checkResults);
+            }
+            $result='';
+            if(count($checkResults)>=1){
+                $resultObj = $checkResults[0];
+                $result = $resultObj->comment;
+            }
+
+            if($this->mode == 'apitest'){
+                echo $result;
+            }else{
+                return $result;
+            }
+
+        }
+        else{
+            $params=[
+                'lastname'=>$lastname,
+                'firstname'=>$firstname,
+                'midname'=>$midname,
+                'birthday'=>$birthday,
+                'vid'=>$vid,
+                'vids'=>$vids,
+                'checkResults'=>$checkResults,
+                'allow_edit'=>$_SESSION['allow_edit'],
+            ];
+            $content = $this->view->renderCheckView($params);
+            echo $this->mainView($content, $_SESSION['allow_edit']);
+        }
+
+
+
     }
 
     public function addFromFile(){
-        $params=['allow_edit'=>$_SESSION['allow_edit'],];
-        $content = $this->view->renderAddFromFileView($params);
-        echo $this->mainView($content);
+        $vids = $this->model->getVidsInsurance();
+        $params=[
+            'allow_edit'=>$_SESSION['allow_edit'],
+            'vids'=>$vids,
+            ];
+
+        $content = $this->view->renderAddFromFileView($params, $_SESSION['allow_edit']);
+        echo $this->mainView($content, $_SESSION['allow_edit']);
     }
 
     public function getFile($size){
@@ -137,7 +185,7 @@ if(!empty($_POST['submit'])){
     public function toExcel(){
 
         $content = $this->view->renderToExcelView();
-        echo $this->mainView($content);
+        echo $this->mainView($content, $_SESSION['allow_edit']);
     }
     public function excel($vids=''){
         $tmpdir = $this->config['tmpdir'];

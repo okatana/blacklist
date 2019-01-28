@@ -22,8 +22,7 @@ class BlackListView
         return $this->twig->render('error.twig', array('message' => $message));
     }
 
-    public function renderMainView($content,$user){
-        $allow_edit = $user['allow_edit'];
+    public function renderMainView($content,$allow_edit){
         return $this->twig->render('main.twig', array('content'=>$content, 'allow_edit'=>$allow_edit));
     }
 

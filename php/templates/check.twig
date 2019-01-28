@@ -2,9 +2,13 @@
 <div class="blacklist-check-wrapper">
     <h3>Проверка клиента    (checkView)</h3><br/><br/>
     <div>
-        <form action="index.php" method="post" enctype="text/html">
+        <!--form action="index.php" method="post" enctype="text/html"-->
+        <form action="/" method="post" enctype="text/html">
 
             <input type="hidden" name="command" value="check">
+            <input type="hidden" name="apilogin" value="check">
+            <input type="hidden" name="apipassword" value="check">
+            <!--input type="hidden" name="api" value="1"-->
 
             <label class="input-label">фамилия <span>*</span> </label>
             <input type="text" name="lastname" value='{{ lastname }}'><br/><br/>
@@ -26,7 +30,9 @@
                 {% endfor %}
             </select>
             <br/><br/>
-            <h4><input type="submit" value="Проверить" class="blacklist-submit-button"></h4>
+            <label class="input-label">проверка api</label>
+            <input type="checkbox" name="mode" checked="checked" value="api"><br/><br/>
+            <h4><input type="submit" onclick='setURL(this)' value="Проверить" class="blacklist-submit-button"></h4>
 
             <br/><br/>
         </form>
@@ -60,3 +66,12 @@
         </table>
     </div>
 </div>
+
+<script>
+    function  setURL (element) {
+        var mode = document.getElementsByName("mode")[0].checked;
+        var url = mode ? 'api.php':'index.php';
+        element.form.action=url;
+
+    }
+</script>
