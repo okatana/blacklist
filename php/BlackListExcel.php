@@ -90,14 +90,14 @@ class BlackListExcel
             // autosize the columns
             // $page->getColumnDimension('A')->setAutoSize(true);
         $page->getColumnDimension('A')->setWidth(5);
-        $page->getColumnDimension('B')->setWidth(30);
-        $page->getColumnDimension('C')->setWidth(30);
-        $page->getColumnDimension('D')->setWidth(30);
-        $page->getColumnDimension('E')->setWidth(90);
-        $page->getColumnDimension('F')->setWidth(30);
-        $page->getColumnDimension('G')->setWidth(30);
-        $page->getColumnDimension('H')->setWidth(30);
-        $page->getColumnDimension('I')->setWidth(30);
+        $page->getColumnDimension('B')->setWidth(15);
+        $page->getColumnDimension('C')->setWidth(15);
+        $page->getColumnDimension('D')->setWidth(15);
+        $page->getColumnDimension('E')->setWidth(20);
+        $page->getColumnDimension('F')->setWidth(15);
+        $page->getColumnDimension('G')->setWidth(15);
+        $page->getColumnDimension('H')->setWidth(15);
+        $page->getColumnDimension('I')->setWidth(15);
 
         $page->getStyle('A1:I1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
         $page->getStyle('A1:I1')->getFont()->setColor(new PHPExcel_Style_Color(self::FONT_COLOR_WHITE));
@@ -132,7 +132,7 @@ class BlackListExcel
 
         $page->getStyle($this->getRow('B', 'D'))->getAlignment()->
         setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-        $page->getColumnDimension('D')->setWidth(50);
+        $page->getColumnDimension('D')->setWidth(20);
     }
 
     private function getRow($letterFirst, $letterSecond = null, $numFirst = 0, $numSecond = 0)
@@ -162,7 +162,7 @@ class BlackListExcel
 
 //  $filePath = sys_get_temp_dir() . "/" . rand(0, getrandmax()) . rand(0, getrandmax()) . ".tmp";
 //  $filePath = $upload_dir['path'] . rand(0, getrandmax()) . rand(0, getrandmax()) . ".xlsx";
-        $filePath = $tmp_dir . rand(0, getrandmax()) . ".xlsx"; //имя файла для временного сохранения в папке tmp
+        $filePath = $this->tmp_dir . rand(0, getrandmax()) . ".xlsx"; //имя файла для временного сохранения в папке tmp
 //  $filePath = $upload_dir['url'] . time() . '.test1.xlsx';
         $this->objWriter->save($filePath);
         header('Content-Length: ' . filesize($filePath));

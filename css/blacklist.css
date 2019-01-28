@@ -1,5 +1,5 @@
 body{
-    width: 1000px;
+    width: 100%;
     margin: 10px auto;
     font-family: 'Roboto', sans-serif;
 }
@@ -16,9 +16,11 @@ body{
 
 .blacklist-body{
     width: 100%;
+    min-height:1000px;
     display:table;
     border-collapse:collapse;
     padding: 0px;
+    margin:0;
 }
 .blacklist-wrapper{
     display:table-row;
@@ -125,8 +127,8 @@ input.blacklist-submit{
 .excel-button{
     padding:9px;
 }
-input[type="submit"]:active,
-:active{
+input[type="submit"]:active
+{
     border-color: #007bff;
     border: 1px solid transparent;
 
@@ -146,5 +148,8 @@ a.excel-button{
     border: 2px solid transparent;
     padding:9px;
 
+}
+.input-label{
+    width: 20%;
 }
 

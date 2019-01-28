@@ -1,3 +1,5 @@
+
+
 <div class="blacklist-left">
     <div>
         <form action="/index.php" method="post" enctype="text/html">
@@ -18,26 +20,26 @@
                 <a  href="#" onclick="event.preventDefault(); this.parentNode.submit()">Добавить</a>
 
             </form>
-
         {% endif %}
+
     </div>
 
     <div>
         {% if allow_edit == 1 %}
-            <form action="/index.php" method="post" enctype="text/html">
+           <form action="/index.php" method="post" enctype="text/html">
 
                 <input type="hidden" name="command" value="addFromFile" />
 
                 <a  href="#" onclick="event.preventDefault(); this.parentNode.submit()">Добавить из файла</a>
 
             </form>
-
         {% endif %}
+
     </div>
 
 
     <div>
-        {% if allow_edit == 1 %}
+
             <form action="/index.php" method="post" enctype="text/html">
 
                 <input type="hidden" name="command" value="toExcel" />
@@ -46,9 +48,41 @@
 
             </form>
 
-        {% endif %}
+
     </div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
 
 
+    <div>
+
+        <form action="/index.html" method="post" enctype="text/html">
+
+            <input type="hidden" name="command" value="exit" />
+
+            <a  href="#" onclick="event.preventDefault(); this.parentNode.submit()" style="text-align: center">ВЫХОД</a>
+
+        </form>
+
+
+    </div>
 
 </div>

@@ -1,3 +1,4 @@
+
 <div class="blacklist-check-wrapper">
     <h3>Проверка клиента    (checkView)</h3><br/><br/>
     <div>
@@ -5,19 +6,19 @@
 
             <input type="hidden" name="command" value="check">
 
-            <label>фамилия </label>
-            <input type="text" name="lastname" value='{{ lastname }}'> &nbsp;&nbsp;&nbsp;&nbsp;
+            <label class="input-label">фамилия <span>*</span> </label>
+            <input type="text" name="lastname" value='{{ lastname }}'><br/><br/>
 
-            <label>имя</label>
-            <input type="text" name="firstname" value='{{ firstname }}'> &nbsp;&nbsp;&nbsp;&nbsp;
+            <label class="input-label">имя <span>*</span></label>
+            <input type="text" name="firstname" value='{{ firstname }}'><br/><br/>
 
-            <label>отчество</label>
-            <input type="text" name="midname" value='{{ midname }}'> <br/><br/>
+            <label class="input-label">отчество <span>*</span></label>
+            <input type="text" name="midname" value='{{ midname }}'><br/><br/>
 
-            <label>дата рождения</label>
-            <input type="date" name="birthday" value='{{ birthday }}'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label class="input-label">дата рождения</label>
+            <input type="date" name="birthday" value='{{ birthday }}'><br/><br/>
 
-            <label>вид страхования</label>
+            <label class="input-label">вид страхования</label>
             <select name="vid"  >
                 <option value="0">выберите ...</option>
                 {% for vid in vids %}
@@ -53,7 +54,7 @@
                 <td>{{ checkResult.birthday }}</td>
                 <td>{{ checkResult.manager }}</td>
                 <td><a href="mailto:{{ checkResult.email }}">{{ checkResult.email }}</a></td>
-                <td>{{ checkResult.comment }}</td>
+                <td>{{ checkResult.comment | raw }}</td>
             </tr>
             {% endfor %}
         </table>

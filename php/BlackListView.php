@@ -22,8 +22,9 @@ class BlackListView
         return $this->twig->render('error.twig', array('message' => $message));
     }
 
-    public function renderMainView($content){
-        return $this->twig->render('main.twig', array('content'=>$content, 'allow_edit'=>$_SESSION['allow_edit']));
+    public function renderMainView($content,$user){
+        $allow_edit = $user['allow_edit'];
+        return $this->twig->render('main.twig', array('content'=>$content, 'allow_edit'=>$allow_edit));
     }
 
     public function renderCheckView($params){
@@ -34,8 +35,8 @@ class BlackListView
         return $this->twig->render('add.twig', $params);
     }
 
-    public function renderAddFromFileView(){
-        return $this->twig->render('addFromFile.twig');
+    public function renderAddFromFileView($params){
+        return $this->twig->render('addFromFile.twig', $params);
     }
 
     public function renderToExcelView(){

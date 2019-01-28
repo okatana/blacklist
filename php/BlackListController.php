@@ -22,6 +22,7 @@ class BlackListController
     private $view;
     private $logger;
     private $user;
+
     function __construct($config)
     {
         $this->config = $config;
@@ -32,17 +33,20 @@ class BlackListController
     public function login($login, $password)
     {
         $user = $this->model->checkLogin($login, $password);//arr
+
         if ($user) {
+
             $this->user = $user;
             $_SESSION['user_id'] = $user['user_id'];
-            $_SESSION['allow_edit'] = $user['allow_edit']; //доступ данного менеджера к редактированию. Если = 1, то может все: редактировать и смотреть-проверять
+            $_SESSION['allow_edit'] = $user['allow_edit'];//доступ данного менеджера к редактированию. Если = 1, то может все: редактировать и смотреть-проверять
             echo  $this->checkView();
         } else {
+
             echo $this->view->renderError('Нет прав.');
         }
     }
     private function mainView($content){
-        return $this->view->renderMainView($content);
+        return $this->view->renderMainView($content, $_SESSION[]);
     }
     private function checkView(){
         $vids = $this->model->getVidsInsurance();
@@ -71,6 +75,7 @@ if(!empty($_POST['submit'])){
             'vids'=>$vids,
             'checkResults'=>$checkResults,
         ];
+
         $content = $this->view->renderCheckView($params);
         return $this->mainView($content);
     }
@@ -78,6 +83,7 @@ if(!empty($_POST['submit'])){
 
     public function add($lastname,$firstname,$midname,$birthday,$vid_id,$comment_info){
         if($lastname!='' && $firstname!='' && $midname!='' && $birthday!='' && $vid_id!=''){
+
             $addClient = $this->addClient($lastname,$firstname,$midname,$birthday,$vid_id,$comment_info);
 
         }else{
@@ -102,6 +108,7 @@ if(!empty($_POST['submit'])){
     public function check($lastname,$firstname,$midname,$birthday,$vid){
         $vids = $this->model->getVidsInsurance();
         $checkResults = $this->getCheckResults($lastname,$firstname,$midname,$birthday,$vid);
+
         $params=[
             'lastname'=>$lastname,
             'firstname'=>$firstname,
@@ -110,18 +117,20 @@ if(!empty($_POST['submit'])){
             'vid'=>$vid,
             'vids'=>$vids,
             'checkResults'=>$checkResults,
+            'allow_edit'=>$_SESSION['allow_edit'],
         ];
         $content = $this->view->renderCheckView($params);
         echo $this->mainView($content);
     }
 
     public function addFromFile(){
-        $content = $this->view->renderAddFromFileView();
+        $params=['allow_edit'=>$_SESSION['allow_edit'],];
+        $content = $this->view->renderAddFromFileView($params);
         echo $this->mainView($content);
     }
 
     public function getFile($size){
-        echo $size;
+        echo 12;
 
     }
 
@@ -131,7 +140,7 @@ if(!empty($_POST['submit'])){
         echo $this->mainView($content);
     }
     public function excel($vids=''){
-        $tmpdir = $this->config['mod-tmp'];
+        $tmpdir = $this->config['tmpdir'];
         // $this->logger->info('model = '. print_r($this->model->getDepartmentForDate($fordate)));
         (new BlackListExcel($tmpdir))->toExcel($this->model, $vids);
     }
@@ -144,6 +153,7 @@ if(!empty($_POST['submit'])){
     }
 
     private function addClient($lastname,$firstname,$midname,$birthday,$vid_id,$comment_info){
+
         return $this->model->addClient($lastname,$firstname,$midname,$birthday,$vid_id, $comment_info);
     }
     private function getLastAddedClient(){
