@@ -59,7 +59,7 @@ SQL;
         $vidCondition = $vid ? ' AND vid_id = ' . $this->pdo->getDbh()->quote($vid) : '';
 
         $sql = <<<SQL
-SELECT distinct lastname, firstname, midname, birthday, inf.comment , inf.vid_id
+SELECT distinct lastname, firstname, midname, birthday, inf.comment , inf.vid_id, us.email
 FROM blacklist_client cl , 
      blacklist_client_info inf, 
      blacklist_user us

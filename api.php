@@ -36,10 +36,14 @@ if($apilogin && $apipassword){
         if(isset($_POST['birthday'])){$birthday = $_POST['birthday']; }else{$birthday = '';};
         if(isset($_POST['vid'])){$vid = $_POST['vid']; }else{$vid = '';};
 
-        $controller->check($lastname,$firstname,$midname,$birthday,$vid);
+        $result=$controller->check($lastname,$firstname,$midname,$birthday,$vid);
 
 
-
+        if($mode=='apitest'){
+            echo $result;
+        }else{
+            return $result;
+        }
 
     } else {
         $error = 'Логин и пароль не подходят';
