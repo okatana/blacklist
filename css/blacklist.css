@@ -166,3 +166,15 @@ a.excel-button{
     border: #ebe9d4 solid 2px;
     padding:10px;
 }
+.colorRed{
+    background-color: #dedcc7;
+    width:40%;
+    padding:10px;
+    color: #4d4b3f;
+}
+.panelGray{
+    background-color: #faf8e3;
+    border-radius: 10px;
+    border: #ebe9d4 solid 2px;
+    padding:10px;
+}

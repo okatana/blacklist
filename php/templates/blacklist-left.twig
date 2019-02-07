@@ -36,7 +36,18 @@
         {% endif %}
 
     </div>
+    <!--div>
+        {% if  user_id == '3' %}
+            <form action="/index.php" method="post" enctype="text/html">
 
+                <input type="hidden" name="command" value="delete" />
+
+                <a  href="#" onclick="event.preventDefault(); this.parentNode.submit()">Удалить по ID</a>
+
+            </form>
+        {% endif %}
+
+    </div-->
 
     <div>
 
@@ -44,7 +55,7 @@
 
                 <input type="hidden" name="command" value="toExcel" />
 
-                <a  href="#" onclick="event.preventDefault(); this.parentNode.submit()">Выгрузить в excel</a>
+                <a  href="#" onclick="event.preventDefault(); this.parentNode.submit()">Выгрузить в excel </a>
 
             </form>
 
@@ -70,7 +81,15 @@
     <br/>
     <br/>
     <br/>
+    <div>
+        <form action="/index.php" method="post" enctype="text/html">
 
+            <input type="hidden" name="command" value="documentation" />
+
+            <a  href="#" onclick="event.preventDefault(); this.parentNode.submit()">Справка</a>
+
+        </form>
+    </div>
 
     <div>
 

@@ -30,8 +30,8 @@
                 {% endfor %}
             </select>
             <br/><br/>
-            <label class="input-label">проверка api</label>
-            <input type="checkbox" name="mode" checked="checked" value="api"><br/><br/>
+            <label class="input-label visible-none">проверка api</label>
+            <input type="checkbox" name="mode"  value="api" class="visible-none"><br/><br/>
             <h4><input type="submit" onclick='setURL(this)' value="Проверить" class="blacklist-submit-button"></h4>
 
             <br/><br/>
@@ -53,7 +53,7 @@
             </tr>
             {% for checkResult in checkResults %}
             <tr>
-                <td>{{ checkResult.client_id }}</td>
+                <td>{{ checkResult.client_id }} <br/> <a href="/edit.php?id={{ checkResult.client_id }}">редактировать</a> </td>
                 <td>{{ checkResult.lastname }}</td>
                 <td>{{ checkResult.firstname }}</td>
                 <td>{{ checkResult.midname }}</td>

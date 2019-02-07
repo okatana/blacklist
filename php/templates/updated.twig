@@ -1,0 +1,29 @@
+<div class="blacklist-check-wrapper">
+    <h3>Обновленные данные клиента </h3><br/><br/>
+<div>
+    <table class="blacklist-table">
+        <tr>
+            <th>ID</th>
+            <th>фамилия  </th>
+            <th>имя  </th>
+            <th>отчество  </th>
+            <th>дата рождения  </th>
+            <th>ФИО менеджера  </th>
+            <th>email менеджера  </th>
+            <th>комментарий  </th>
+        </tr>
+
+        <tr>
+            <td>{{ client_id }} <a href="/edit.php?id={{ client_id }}">редактировать</a> <br/> </td>
+            <td>{{ lastname }}</td>
+            <td>{{ firstname }}</td>
+            <td>{{ midname }}</td>
+            <td>{{ birthday }}</td>
+            <td>{{ manager }}</td>
+            <td><a href="mailto:{{ email }}">{{ email }}</a></td>
+            <td>{{ comment | raw }}</td>
+        </tr>
+
+    </table>
+</div>
+</div>

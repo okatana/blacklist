@@ -4,7 +4,7 @@ session_start();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--meta charset="UTF-8"-->
+    <meta charset="UTF-8">
     <meta http-equiv="Cache-Control" content="no-cache">
     <title>Проверка клиентов</title>
     <link rel='stylesheet' href='css/blacklist.css' type='text/css' media='all' />
@@ -90,10 +90,12 @@ switch ($command){
         if(isset($_POST['api'])){$api= $_POST['api']; }else{$api = 0;};
 
          $controller->check($lastname,$firstname,$midname,$birthday,$vid,$api);
+        break;
 
 
         break;
-
+    case 'documentation':
+        $controller->toDocumentation();
     default:
         echo 'неизвестная команда '. $command;
 }

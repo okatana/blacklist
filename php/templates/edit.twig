@@ -1,0 +1,50 @@
+
+
+<div class="blacklist-check-wrapper"><div class="panelGray">
+    <h3 class="colorRed">Редактирование данных клиента    (updateClientbyID)</h3><br/><br/>
+
+<form action="/updated.php?id={{ id }}" method="post" enctype="text/html">
+
+    <input type="hidden" name="command" value="updateClientbyID">
+    <input type="hidden" name="clientID" value="{{ id }}">
+
+    <label>ID клиента = {{ id }}</label><br/><br/>
+
+    <label class="input-label">фамилия  </label>
+    <input type="text" name="lastname" value='{{ lastname }}'><br/><br/>
+
+    <label class="input-label">имя </label>
+    <input type="text" name="firstname" value='{{ firstname }}'><br/><br/>
+
+    <label class="input-label">отчество </label>
+    <input type="text" name="midname" value='{{ midname }}'><br/><br/>
+
+    <label class="input-label">дата рождения</label>
+    <input type="date" name="birthday" value='{{ birthday }}'><br/><br/>
+
+    <label class="input-label">вид страхования - {{ insname }}</label><br/><br/>
+
+    <label class="input-label">комментарий</label>
+
+    <p><textarea rows="10" cols="45" name="comment_info" style="width:100%" >{{ comment }}</textarea></p>
+
+    <h4><input type="submit" value="Обновить данные" class="blacklist-submit-button"></h4>
+
+
+</form>
+</div>
+    <br/>
+    <hr/><br/>
+    <div class="panelGray">
+    <h3 class="colorRed">Удаление данных клиента    (deleteClientbyID)</h3><br/><br/>
+
+    <form action="/delete.php?id={{ id }}" method="post" enctype="text/html">
+        <input type="hidden" name="command" value="deleteClientbyID">
+        <input type="hidden" name="clientID" value="{{ id }}">
+        <label class="input-label">Причины удаления <span>*</span></label>
+
+        <p><textarea rows="10" cols="45" name="delete_comment" style="width:100%" >{{ delete_comment }}</textarea></p>
+
+        <h4><input type="submit" value="Удалить данные" class="blacklist-submit-button"></h4>
+    </form>
+</div></div>

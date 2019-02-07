@@ -1,15 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Cache-Control" content="no-cache">
-    <title>Добавление нового клиента</title>
-    <link rel='stylesheet' href='css/blacklist.css' type='text/css' media='all' />
-    <link rel='stylesheet' href='css/blacklistIndexHtml.css' type='text/css' media='all' />
-
-    <link rel="shortcut icon" type="image/x-icon" href="images/1548252846.ico">
-</head>
-<body>
 
 <div class="blacklist-check-wrapper">
     <h3>Добавление нового клиента    (addView)</h3><br/><br/>
@@ -38,7 +26,7 @@
                 {% endfor %}
             </select>
             <br/><br/>
-            <label>комментарий</label>
+            <label>комментарий <span>*</span></label>
             <p><textarea rows="10" cols="45" name="comment_info" style="width:100%"></textarea></p>
             <h4><input type="submit" value="Добавить" class="blacklist-submit-button"></h4>
 
@@ -78,5 +66,3 @@
         </table>
     </div>
 </div>
-</body>
-</html>

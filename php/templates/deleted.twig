@@ -1,0 +1,29 @@
+<div class="blacklist-check-wrapper">
+    <h3>Данные клиента удалены </h3><br/><br/>
+<div>
+    <table class="blacklist-table">
+        <tr>
+            <th>ID</th>
+            <th>фамилия  </th>
+            <th>имя  </th>
+            <th>отчество  </th>
+            <th>дата рождения  </th>
+            <th>ФИО менеджера  </th>
+            <th>email менеджера  </th>
+            <th>причины удаления  </th>
+        </tr>
+
+        <tr>
+            <td>{{ client_id }}  <br/> </td>
+            <td>{{ lastname }}</td>
+            <td>{{ firstname }}</td>
+            <td>{{ midname }}</td>
+            <td>{{ birthday }}</td>
+            <td>{{ manager }}</td>
+            <td><a href="mailto:{{ email }}">{{ email }}</a></td>
+            <td>{{ delete_comment | raw }}</td>
+        </tr>
+
+    </table>
+</div>
+</div>
