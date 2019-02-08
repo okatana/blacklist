@@ -1,0 +1,37 @@
+ $url = 'http://bllist.guideh.com/api.php';
+        $obj = new \stdClass();
+        $obj->apilogin = 'check';
+        $obj->apipassword = 'check';
+        $obj->lastname = trim($values['customer_lastname']);
+        $obj->firstname = trim($values['customer_firstname']);
+        $obj->midname = trim($values['customer_patronymic']);
+        $obj->birthday = $values['customer_birthdate'];
+        $obj->vid = $values['form_id'] == 'doctor_order' ? '5' : '0';
+		
+Переменная $server_URL – адрес сервера API к которому отправляются запросы	
+продуктовая среда http://bllist.guideh.com/
+Все запросы POST. 
+
+Запрос на проверку данных клиента.
+
+	$obj = new \stdClass();
+	$obj->apilogin = $apilogin;
+	$obj->apipassword = $apipassword;
+	$obj->lastname =$lastname;
+	$obj->firstname =$firstname;
+	$obj->midname = $midname;
+	$obj->birthday = $birthday;
+	$obj->vid = $vid;
+  
+ $.post("$server_URL/api.php", ['form_params'=>$obj]);
+  
+Параметры запроса
+  
+$apilogin  'check' 
+$apipassword 'check'
+$lastname varchar(64) 
+$firstname varchar(64) 
+$midname   varchar(64) 
+$birthday date
+$vid   	int(11)       (для ДМС=5, ВЗР=6, КВАРТИРЫ=7, НС=8)
+

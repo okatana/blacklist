@@ -52,14 +52,18 @@ SQL;
 
     public function getCheckResults($lastname, $firstname, $midname, $birthday, $vid)
     {
-        $lastnameCondition = $lastname ? ' AND lastname rlike ' . $this->pdo->getDbh()->quote($lastname) : '';
-        $firstCondition = $firstname ? ' AND firstname rlike ' . $this->pdo->getDbh()->quote($firstname) : '';
-        $midnameCondition = $midname ? ' AND midname rlike ' . $this->pdo->getDbh()->quote($midname) : '';
+        $lastnameU = $lastname? mb_strtoupper($lastname):'';
+        $firstnameU = $firstname? mb_strtoupper($firstname):'';
+        $midnameU = $midname? mb_strtoupper($midname):'';
+echo '$lastnameU=='.($lastnameU);
+        $lastnameCondition = $lastname ? ' AND UPPER(lastname) rlike ' . $this->pdo->getDbh()->quote($lastnameU) : '';
+        $firstCondition = $firstname ? ' AND UPPER(firstname) rlike ' . $this->pdo->getDbh()->quote($firstnameU) : '';
+        $midnameCondition = $midname ? ' AND UPPER(midname) rlike ' . $this->pdo->getDbh()->quote($midnameU) : '';
         $birthdayCondition = $birthday ? ' AND birthday = ' . $this->pdo->getDbh()->quote($birthday) : '';
         $vidCondition = $vid ? ' AND vid_id = ' . $this->pdo->getDbh()->quote($vid) : '';
 
         $sql = <<<SQL
-SELECT distinct lastname, firstname, midname, birthday, inf.comment , inf.vid_id, us.email, cl.client_id, us.manager
+SELECT distinct  UPPER(lastname) as lastname , UPPER(firstname) as firstname , UPPER(midname) as midname, birthday, inf.comment , inf.vid_id, us.email, cl.client_id, us.manager
 FROM blacklist_client cl , 
      blacklist_client_info inf, 
      blacklist_user us
